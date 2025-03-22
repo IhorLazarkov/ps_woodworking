@@ -1,4 +1,4 @@
-# Feature list
+# FEATURE LIST
 
 ## Products
 - Users will be able to view all Products.
