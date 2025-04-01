@@ -1,18 +1,30 @@
-# React/Vite Authenticate Me
+# FEATURE LIST
 
-This is the frontend for the Flask/React project. Note that it has no styling
-applied. You can copy the __.css__ files from your Authenticate Me project into
-the corresponding locations in the __react-vite__ folder to give your project a
-unique look.
+## Products
+- Users will be able to view all Products.
+- Users will be able to create a Product.
+- Users will be able to update their Product(s).
+- Users will be able to delete their Product(s).
 
-To run it:
+## Reviews
+- Users will be able to view all reviews on a Product.
+- Users will be able to create a review for a Product.
+- Users will be able to update their review for a Product.
+- Users will be able to delete their review from a Product.
 
-1. `cd` into the __react-vite__ folder.
-2. Run `npm install` to install dependencies.
-3. Launch it with `npm run dev`.
-4. In your browser, navigate to [`localhost:5173`].
+## Shopping Cart
+- Users will be able to view all products added to their cart.
+- Users will be able to add products to their shopping cart.
+- Users will be able to remove products from their shopping cart.
+- Users will be able to preform a "transaction" to complete their purchase.
 
-Don't forget to run `npm run build` before merging your work to your production
-branch!
+## Favorites
+- Users will be able to view all of their favorite products.
+- Users will be able to favorite products.
+- Users will be able to delete products from their favorites.
 
-[`localhost:5173`]: http://localhost:5173/
+# React Components list
+
+# frontend routes document
+
+# Redux store tree document
