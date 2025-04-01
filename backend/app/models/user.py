@@ -11,8 +11,11 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
+    # first_name = db.Column(db.String(40), nullable=False) #! Fname col no mig
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    # seller = db.Column(db.Boolean, default=False) #! seller bool col no mig
+    # created_at = db.Column(db.DateTime, default=db.func.now()) #! created at syntax no migrate
 
     @property
     def password(self):
@@ -29,5 +32,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            # 'first_name': self.first_name, #! fname return
+            'email': self.email,
+            # 'seller': self.seller, #! seller return
+            # 'created_at': self.created_at, #! timestamp return
         }
