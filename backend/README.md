@@ -248,10 +248,11 @@ Returns all the products.
         {
           "id": 1,
           "sellerId": 1,
-          "name": "App Academy",
+          "name": "cofee table",
           "price": 123,
-          "department": "tools",
-          "description": "Place where web developers are created",
+          "department": "furnishing",
+          "description": "hand crafted table",
+          "quantity": "1",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "avgRating": 4.5,
@@ -283,9 +284,11 @@ Returns all the products owned (created) by the current user.
         {
           "id": 1,
           "sellerId": 1,
-          "name": "App Academy",
-          "description": "Place where web developers are created",
+          "name": "cofee table",
           "price": 123,
+          "department": "furnishing",
+          "description": "hand crafted table",
+          "quantity": "1",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "avgRating": 4.5,
@@ -315,9 +318,11 @@ Returns the details of a product specified by its id.
     {
       "id": 1,
       "sellerId": 1,
-      "name": "App Academy",
-      "description": "Place where web developers are created",
+      "name": "cofee table",
       "price": 123,
+      "department": "furnishing",
+      "description": "hand crafted table",
+      "quantity": "1",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
       "numReviews": 5,
@@ -368,9 +373,12 @@ Creates and returns a new product.
 
     ```json
     {
-      "name": "App Academy",
-      "description": "Place where web developers are created",
-      "price": 123
+      "seller_id": "1",
+      "name": "cofee table",
+      "price": 123,
+      "department": "furnishing",
+      "description": "hand crafted table",
+      "quantity": "1",
     }
     ```
 
@@ -384,9 +392,11 @@ Creates and returns a new product.
     {
       "id": 1,
       "sellerId": 1,
-      "name": "App Academy",
-      "description": "Place where web developers are created",
+      "name": "cofee table",
       "price": 123,
+      "department": "furnishing",
+      "description": "hand crafted table",
+      "quantity": "1",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -470,9 +480,10 @@ Updates and returns an existing product.
 
     ```json
     {
-      "name": "App Academy",
-      "description": "Place where web developers are created",
-      "price": 123
+      "name": "table",
+      "description": "table",
+      "quantity": "2",
+      "price": 124
     }
     ```
 
@@ -486,9 +497,10 @@ Updates and returns an existing product.
     {
       "id": 1,
       "sellerId": 1,
-      "name": "App Academy",
-      "description": "Place where web developers are created",
-      "price": 123,
+      "name": "table",
+      "description": "table",
+      "quantity": "2",
+      "price": 124,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
     }
@@ -582,48 +594,36 @@ Returns all the reviews written by the current user.
         {
           "id": 1,
           "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
+          "productId": 1,
+          "review": "This was an awesome product!",
           "stars": 5,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36" ,
           "User": {
             "id": 1,
             "firstName": "John",
-            "lastName": "Smith"
           },
-          "Spot": {
+          "product": {
             "id": 1,
-            "ownerId": 1,
-            "address": "123 Disney Lane",
-            "city": "San Francisco",
-            "state": "California",
-            "country": "United States of America",
-            "lat": 37.7645358,
-            "lng": -122.4730327,
-            "name": "App Academy",
-            "price": 123,
+            "sellerId": 1,
+            "name": "table",
+            "description": "table",
+            "price": 124,
             "previewImage": "image url"
           },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ]
         }
       ]
     }
     ```
 
-### Get all Reviews by a Spot's id
+### Get all Reviews by a product's id
 
-Returns all the reviews that belong to a spot specified by id.
+Returns all the reviews that belong to a product specified by id.
 
 * Require Authentication: false
 * Request
   * Method: GET
-  * Route path: api/spots/:spotId/reviews
+  * Route path: api/products/:productId/reviews
   * Body: none
 
 * Successful Response
@@ -638,28 +638,21 @@ Returns all the reviews that belong to a spot specified by id.
         {
           "id": 1,
           "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
+          "productId": 1,
+          "review": "This was an awesome product!",
           "stars": 5,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36" ,
           "User": {
             "id": 1,
             "firstName": "John",
-            "lastName": "Smith"
           },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ],
         }
       ]
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a product with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -667,25 +660,25 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "product couldn't be found"
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id
+### Create a Review for a product based on the product's id
 
-Create and return a new review for a spot specified by id.
+Create and return a new review for a product specified by id.
 
 * Require Authentication: true
 * Request
   * Method: POST
-  * Route path: api/spots/:spotId/reviews
+  * Route path: api/products/:productId/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
+      "review": "This was an awesome product!",
       "stars": 5,
     }
     ```
@@ -700,8 +693,8 @@ Create and return a new review for a spot specified by id.
     {
       "id": 1,
       "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
+      "productId": 1,
+      "review": "This was an awesome product!",
       "stars": 5,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
@@ -724,7 +717,7 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find a product with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -732,11 +725,11 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "product couldn't be found"
     }
     ```
 
-* Error response: Review from the current user already exists for the Spot
+* Error response: Review from the current user already exists for the product
   * Status Code: 500
   * Headers:
     * Content-Type: application/json
@@ -744,7 +737,7 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "message": "User already has a review for this spot"
+      "message": "User already has a review for this product"
     }
     ```
 
@@ -763,7 +756,7 @@ Update and return an existing review.
 
     ```json
     {
-      "review": "This was an awesome spot!",
+      "review": "This was an awesome product!",
       "stars": 5,
     }
     ```
@@ -778,8 +771,8 @@ Update and return an existing review.
     {
       "id": 1,
       "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
+      "productId": 1,
+      "review": "This was an awesome product!",
       "stars": 5,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
@@ -848,4 +841,3 @@ Delete an existing review.
       "message": "Review couldn't be found"
     }
     ```
-
