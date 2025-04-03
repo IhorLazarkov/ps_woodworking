@@ -25,6 +25,6 @@
 
 # React Components list
 
-# frontend routes document
+# Frontend routes document
 
 # Redux store tree document
