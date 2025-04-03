@@ -841,3 +841,41 @@ Delete an existing review.
       "message": "Review couldn't be found"
     }
     ```
+
+
+## IMAGES
+
+### Delete a product Image
+
+Delete an existing image for a product.
+
+* Require Authentication: true
+* Require proper authorization: product must belong to the current user
+* Request
+  * Method: DELETE
+  * Route path: api/product-images/:imageId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+* Error response: Couldn't find a product Image with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "product Image couldn't be found"
+    }
+    ```
