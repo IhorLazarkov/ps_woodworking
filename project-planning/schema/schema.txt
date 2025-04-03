@@ -1,47 +1,57 @@
 Table users {
   id integer [primary key]
-  user_name varchar
+  user_name varchar unique
   first_name varchar
   password string.binary
-  email varchar
-  seller boolean
+  email varchar unique
+  seller boolean default false
   created_at timestamp
 }
 
 Table products {
   id integer [primary key]
-  seller_id integer
-  name varchar
-  price integer
-  department varchar
-  quantity integer
-  image url
-  description varchar
+  seller_id integer fkey
+  name varchar not null
+  price integer not null
+  department varchar not null
+  brand varchar allow null
+  quantity integer default 0
+  description varchar not null
   created_at timestamp
 }
 
 Table orders {
   id integer [primary key]
-  user_id integer
+  user_id integer fkey
   order_date timestamp
-  shipping_address varchar
-  order_status varchar
+  shipping_address varchar not null
+  order_status varchar default processing
+  created_at timestamp
 }
 
 Table order_items {
   id integer [primary key]
-  order_id integer
-  product_id integer
-  quantity integer
+  order_id integer fkey
+  product_id integer fkey
+  quantity integer not null
   item_price integer
+  created_at timestamp
 }
 
 Table reviews {
   id integer [primary key]
-  user_id integer
-  product_id integer
-  rating integer
-  review varchar
+  user_id integer fkey
+  product_id integer fkey
+  rating integer default 0
+  review varchar not null
+  created_at timestamp
+}
+
+Table images {
+  id integer [primary key]
+  product_id integer fkey
+  url url not null
+  preview boolean default false
   created_at timestamp
 }
 
@@ -51,3 +61,4 @@ Ref: "reviews"."product_id" < "products"."id"
 Ref: "users"."id" < "orders"."user_id"
 Ref: "orders"."id" < "order_items"."order_id"
 Ref: "products"."id" < "order_items"."product_id"
+Ref: "products"."id" < "images"."id"

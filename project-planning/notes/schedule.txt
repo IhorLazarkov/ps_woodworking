@@ -1,0 +1,5 @@
+Week of 1 april
+- finish kanban cards
+- finish readmes for back/front/overall
+- db tables complete
+- seeds complete
