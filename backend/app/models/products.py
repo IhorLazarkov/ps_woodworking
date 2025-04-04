@@ -18,3 +18,15 @@ class Product(db.Model, UserMixin):
     image = db.Column(db.url)
     description = db.Column(db.varchar(255))
     created_at = db.Column(db.DateTime, default=db.func.now())
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "price": self.price,
+            "url": self.url,
+            "department": self.department,
+            "preview": self.preview,
+            "description": self.description,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }
