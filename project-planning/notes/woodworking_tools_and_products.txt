@@ -2,17 +2,48 @@ Woodworking tools
 
 handsaws
 	classic western log saw $94.00
+		description: This log saw shares the same crosscut tooth pattern as other lumberjack saws without the larger size that can make them unwieldy. 
+					 This 30" blade saw with 4tpi cuts is the perfect choice for wet or dry round logs that need to be cut quickly and efficiently without clogging or binding up like others saws.
+					 We recommend this log saw for logs up to 12” in diameter, although larger logs may be cut with reduced efficiency.
 	adjustable mitre saw $96.50
+	  description: This is a fully capable Mitring Saw for professionals and hobbyists. Setup and operation are dead simple; 
+	  			   you set the angle that you want to cut, clamp your workpiece to the fence, and make precision cuts. 
+				   The adjustment range is a full 180 degrees. The 22" long blade is held in a rigid, adjustable guide that keeps you locked into your angle as you cut. 
+				   It is extraordinarily accurate. When adjusted to 45 degrees you can cut a 3 3/4" width board, adjust to 90 degrees and you can cut a 6" width board. 
+				   This tool is perfect for making picture frames, cutting trim, or simply making accurate cuts from 1 to 90 degrees. There are precision, 
+				   dedicated stops at the most common angles; 0, 15, 22.5, 30, 31.6, and 45 degrees. Comes with clear instructions and a 22" – 24 tpi blade. 
+				   Replacement blades are available for this product, a set of 3 blades (2 18 tpi and 1 32 tpi) and a set of 2 18 tpi blades.
 		2 replacement blades $22.00
 		3 replacement blades 	$34.50
 
 wood carving tools
 	woodworkers rasps set $37.50
+		description: These are the best machine-cut rasps we’ve come across. The aggressive teeth quickly remove wood to cut a rough shape and the tough steel makes 
+		             this set hard to damage. This set comprises of three styles: round, half-round and flat. They can tackle a variety of tasks, 
+					 like rough-shaping craft carvings, or beveling corners from square pieces. The round rasp can ream out holes in projects. 
+					 With lightly-varnished 4" beech handles, and 8" long bodies.
 	outdoor drawknife $56.00
+		description: The Draw Knife can quickly remove bark from a tree or round uneven surfaces. It's a great tool for sculptors, woodworkers, timber framing, 
+		             or even turn branches into garden stakes or hand rails. It is a true “homestead builder’s tool.”  Forged in Germany by a multi-generational family 
+					 business.
 	10-piece wooden carving set $69.00
+		description: Behind the lid of this handsome Kirin wood box is a great 10-piece carving set designed for mokuhanga, the Japanese art of woodblock carving. 
+		             This set is a fine collection of quality carving tools, and is very suitable for beginners or more advanced users. The glossy brown painted 
+					 birchwood handles provide solid steady guidance of the sharp steel blades, allowing a firm, relaxed grip as you work. 
+					 Included in the set’s 10 pieces are a 4.5 mm and 12 mm flat chisel, a 7.5 mm gouge, a 7.5 mm knife, a 3 mm V-gouge, a 9 mm shallow gouge, 
+					 a 7.5 mm left hand knife, and three U-gouges sized 3, 6, and 9 mm.
 	complete spoon carving set $178.00
+		description: Novices and expert carvers will rejoice when they receive this thoughtful gift. This set comes with 3 special spoon carving tools with a beautifully 
+		             made duck canvas and suede tool roll to keep your tools all in one safe place. We are also adding as a special bonus a sharpening tool 
+					 to keep your curved tools sharp and always ready for the next project.
 	set of 5 micro carving tools $99.00
+		description: These hand-forged, razor sharp blades are set in octagonal, lightly stained cherry handles. The short blades put the cutting edge right at your fingertips, 
+		             for unusually good feel and control. Perfect for detailed wood carving, linoleum cuts, model making, furniture restoration, or anything where a delicate 
+					 touch is required. Each of the five pieces is 5½" long overall, with 4" handles and 1½" blades. Set includes: 2 mm Straight Gouge; 1.5mm V-Gouge, 
+					 3mm V-Gouge; 1.5 mm U-Gouge; 3mm U-Gouge. Made in the USA. 
 	straight carving knife $47.50
+		description: This Straight Carving Knife has a 2-1/4" high-carbon steel blade and a 4-1/4" long hardwood handle. This knife allows you to create handles 
+		             and other smooth surfaces in your carving projects with minimal effort.
 
 measuring and layout
 	cnc machined precision layout squares 7 and 12 inches $118.00
