@@ -1,32 +1,31 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from sqlalchemy.orm import relationship
 
 
-class Product(db.Model, UserMixin):
+class Product(db.Model):
     __tablename__ = 'products'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    seller_id = db.Column(db.Integer)
-    product_name = db.Column(db.varchar(50))
-    product_price = db.Column(db.decimal(6,2))
-    department = db.Column(db.varchar(50))
-    quantity = db.Column(db.Integer)
-    image = db.Column(db.url)
-    description = db.Column(db.varchar(255))
+    seller_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    product_name = db.Column(db.String(50), nullable = False)
+    product_price = db.Column(db.Numeric(precision=8, scale = 2), default = 0)
+    department = db.Column(db.String(50), default = "General")
+    quantity = db.Column(db.Integer, default = 0)
+    description = db.Column(db.String(255), nullable = False)
     created_at = db.Column(db.DateTime, default=db.func.now())
+
+    seller_id = relationship("User", back_populates="products")
 
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name,
-            "price": self.price,
-            "url": self.url,
+            "name": self.product_name,
+            "price": self.product_price,
             "department": self.department,
-            "preview": self.preview,
+            "quantity": self.quantity,
             "description": self.description,
             "created_at": self.created_at.isoformat() if self.created_at else None
         }

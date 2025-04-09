@@ -18,9 +18,9 @@ class User(db.Model, UserMixin):
     seller = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    products = relationship("Products", back_populates="product")
-    reviews = relationship("Reviews", back_populates="review")
-    orders = relationship("Orders", back_populates="order")
+    products = relationship("Products", back_populates="user")
+    reviews = relationship("Reviews", back_populates="user")
+    orders = relationship("Orders", back_populates="user")
 
     @property
     def password(self):
