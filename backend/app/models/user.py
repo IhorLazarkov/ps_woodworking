@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship
 
 
 class User(db.Model, UserMixin):
@@ -11,11 +12,15 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
-    # first_name = db.Column(db.String(40), nullable=False) #! Fname col no mig
+    first_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    # seller = db.Column(db.Boolean, default=False) #! seller bool col no mig
-    # created_at = db.Column(db.DateTime, default=db.func.now()) #! created at syntax no migrate
+    seller = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    products = relationship("Products", back_populates="product")
+    reviews = relationship("Reviews", back_populates="review")
+    orders = relationship("Orders", back_populates="order")
 
     @property
     def password(self):
@@ -32,8 +37,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            # 'first_name': self.first_name, #! fname return
+            'first_name': self.first_name,
             'email': self.email,
-            # 'seller': self.seller, #! seller return
-            # 'created_at': self.created_at, #! timestamp return
+            'seller': self.seller,
+            'created_at': self.created_at,
         }
