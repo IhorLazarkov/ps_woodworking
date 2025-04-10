@@ -14,7 +14,7 @@ class Image(db.Model):
     preview = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    product = relationship("Product", back_populoates="images")
+    product = relationship("Product", back_populates="images")
 
 
     def to_dict(self):
