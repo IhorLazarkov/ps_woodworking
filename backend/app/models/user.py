@@ -18,9 +18,9 @@ class User(db.Model, UserMixin):
     seller = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    products = relationship("Products", back_populates="user")
-    reviews = relationship("Reviews", back_populates="user")
-    orders = relationship("Orders", back_populates="user")
+    products = relationship("Product", back_populates="user", cascade="all, delete")
+    reviews = relationship("Review", back_populates="user", cascade="all, delete")
+    orders = relationship("Order", back_populates="user", cascade="all, delete")
 
     @property
     def password(self):
@@ -40,5 +40,5 @@ class User(db.Model, UserMixin):
             'first_name': self.first_name,
             'email': self.email,
             'seller': self.seller,
-            'created_at': self.created_at,
+            "created_at": self.created_at.isoformat() if self.created_at else None
         }

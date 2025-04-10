@@ -12,12 +12,13 @@ class Product(db.Model):
     seller_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     product_name = db.Column(db.String(50), nullable = False)
     product_price = db.Column(db.Numeric(precision=8, scale = 2), default = 0)
-    department = db.Column(db.String(50), default = "General")
+    department = db.Column(db.String(50), nullable=False)
     quantity = db.Column(db.Integer, default = 0)
     description = db.Column(db.String(255), nullable = False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    seller_id = relationship("User", back_populates="products")
+    seller = relationship("User", back_populates="products")
+    order_item = relationship('Order_Item', back_populates='products', cascade="all, delete")
 
     def to_dict(self):
         return {

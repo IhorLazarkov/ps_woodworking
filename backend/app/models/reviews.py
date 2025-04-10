@@ -11,13 +11,13 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("products.id")), nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
+    rating = db.Column(db.Integer, nullable=False, default=1)
     review = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     # Relationships (optional, but recommended)
-    user_id = relationship("User", back_populates="reviews")
-    product_id = relationship("Product", back_populates="reviews")
+    user = relationship("User", back_populates="reviews")
+    product = relationship("Product", back_populates="reviews")
 
     def to_dict(self):
         return {
