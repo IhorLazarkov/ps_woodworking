@@ -17,9 +17,10 @@ class Product(db.Model):
     description = db.Column(db.String(255), nullable = False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    seller = relationship("User", back_populates="products")
-    order_item = relationship('Order_Item', back_populates='products', cascade="all, delete")
-
+    user = relationship("User", back_populates="products")
+    order_items = relationship('Order_Item', back_populates='products', cascade="all, delete")
+    reviews = relationship("Review", back_populates="product", cascade="all, delete")
+    
     def to_dict(self):
         return {
             "id": self.id,

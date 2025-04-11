@@ -15,8 +15,8 @@ class Order_Item(db.Model):
     item_price = db.Column(db.Numeric(precision=8, scale = 2), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    order = relationship('Order', back_populates='order_items')
-    product = relationship('Product',  back_populates='order_items')
+    order_items = relationship('Order', back_populates='order_items')
+    products = relationship('Product',  back_populates='order_items')
 
     def to_dict(self):
         return {

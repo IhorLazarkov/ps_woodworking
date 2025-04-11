@@ -14,7 +14,8 @@ class Order(db.Model):
     order_status = db.Column(db.String(15), default="processing")
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    user_id = relationship("User", back_populates="orders")
+    user = relationship("User", back_populates="orders")
+    order_items = relationship("Order_Item", back_populates="order_items")
 
     def to_dict(self):
         return {
