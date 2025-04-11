@@ -21,7 +21,8 @@ class Order_Items(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "order_id": self.product_order_id,
+            "order_id": self.order_id,
+            "product_id": self.product_id,
             "quantity": self.quantity,
             "price": self.item_price,
             "created_at": self.created_at.isoformat() if self.created_at else None
