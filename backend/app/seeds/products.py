@@ -1,19 +1,20 @@
-from app.models import db, Product, environment, SCHEMA
+from app.models import db, Product, environment, SCHEMA, User
 from sqlalchemy.sql import text
+
 
 
 # Adds a demo product, you can add other products here if you want
 def seed_products():
-    demo1 = Product(
-        username='Demo', email='demo@aa.io', password='password')
-    demo2 = Product(
-        username='marnie', email='marnie@aa.io', password='password')
-    demo3 = Product(
-        username='bobbie', email='bobbie@aa.io', password='password')
+    user = User.query.first()
+    items = [
+        Product(seller_id=user.id, product_name='Chess Board', product_price=10.99, department='Fun & Games', quantity=1, description='this game is so fun'),
+        Product(seller_id=user.id, product_name='Cheese Board', product_price=15.99, department='Decorations', quantity=1, description='this cheese board is homemade'),
+        Product(seller_id=user.id, product_name='Wooden Boat', product_price=10.99, department='Decorations', quantity=1, description='this Wooden Boat is well crafted'),
 
-    db.session.add(demo1)
-    db.session.add(demo2)
-    db.session.add(demo3)
+    ]
+    
+    
+    db.session.add_all(items)
     db.session.commit()
 
 
