@@ -18,7 +18,7 @@ def seed_reviews():
                     rating = random.randint(1,5),
                 )
                 if review.rating <= 2:
-                    review.review = "It was not very good experiance"
+                    review.review = "It was not very good experiance. Don't recommend."
                 elif review.rating >2 and review.rating <=3:
                     review.review = "The product did what I wanted but I expected better."
                 else:
