@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.orm import relationship
 
 
-class Order_Items(db.Model):
+class Order_Item(db.Model):
     __tablename__ = 'order_items'
 
     if environment == "production":
