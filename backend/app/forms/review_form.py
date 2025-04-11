@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import User, Product, Review
+from app.models import User, Product, Review, NumberRange
 
 def is_reviewer_exists(form, field):
     #Check if reviewer exists
@@ -40,7 +40,7 @@ class ReviewForm(FlaskForm):
     rating = IntegerField("rating",
         validators=[
             DataRequired("Rating should not be empty"),
-            Length(min =1, max =5, message = "Rating should be any number between 1 and 5 ")
+            NumberRange(min =1, max =5, message = "Rating should be any number between 1 and 5 ")
         ])
     
     review = StringField("review",
