@@ -28,7 +28,7 @@ class ProductForm(FlaskForm):
     description = StringField('Description', 
         validators=[
             DataRequired("Product must have a description"),
-            Length(min=50, max=255, message="Description needs to be at least 50 characters")
+            Length(min=10, max=255, message="Description needs to be at least 50 characters")
             ])
     
     
