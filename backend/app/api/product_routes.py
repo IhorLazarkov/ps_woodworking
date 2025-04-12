@@ -39,3 +39,20 @@ def create_product():
         return {"message":"success"}, 201
 
     return form.errors, 500
+
+@product_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_product(id):
+    """
+    Delete Product
+    """
+    if not current_user.is_authenticated:
+        return { 'errors': { "message": "Unauthorized" } }, 401
+
+    product = Product.query.filter(Product.id == id).first()
+    if product and product.seller_id == current_user.id:
+        db.session.delete(product)
+        db.session.commit()
+        return {"message":"success"}, 200
+        
+    return {"errors": {"message": "failed"}}, 500
