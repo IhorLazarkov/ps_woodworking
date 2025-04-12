@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Product
+from app.models import db, Product, User
 from app.forms.product_form import ProductForm
 
 product_routes = Blueprint('products', __name__)
@@ -36,7 +36,7 @@ def create_product():
         db.session.add(product)
         db.session.commit()
         
-        return {"message":"success"}, 201
+        return product.to_dict(), 201
 
     return form.errors, 500
 
@@ -78,7 +78,7 @@ def update_product(id):
         product = db.session.get(Product, id)
 
         if product is None:
-            return {"errors": { "message": "Product was not found" }}, 404
+            return {"errors": { "message": "Product not found" }}, 404
     
         if product.seller_id == current_user.id:
             product.product_name = form.data["product_name"]
@@ -89,9 +89,24 @@ def update_product(id):
             
             db.session.add(product)
             db.session.commit()
-            return {"message": "success"}, 200
+            return product.to_dict(), 200
 
         if product.seller_id != current_user.id:
             return { "errors": { "message":"Unathorized to update"}}, 401
     
     return {"errors": { "message":"failed" }}, 500
+
+@product_routes.route("/<int:id>")
+def get_product_details(id):
+    product = db.session.query(Product, User).filter(id == id).join("user").first()
+
+    if product is None:
+        return {"errors": { "message": "Product not found"}}, 404
+    
+    result = product[0].to_dict()
+    result["seller"] = {
+        "id": product[0].user.id,
+        "userName": product[0].user.username,
+        "firstName": product[0].user.first_name
+    }
+    return result, 200
