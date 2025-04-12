@@ -19,7 +19,7 @@ class ProductForm(FlaskForm):
     department = SelectField('Department', 
         validators=[
             DataRequired("Please specify a department for your product")
-            ], choices=[CHOICES])
+            ], choices=CHOICES)
     quantity = IntegerField('Quantity', 
         validators=[
             DataRequired("Please enter a quantity"),
