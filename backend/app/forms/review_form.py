@@ -1,41 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
-from app.models import User, Product, Review
-
-def is_reviewer_exists(form, field):
-    #Check if reviewer exists
-    user_id= field.data
-    user = User.query.filter(User.id == user_id).first()
-
-    if user is None:
-        raise ValidationError("User does not exist")
-
-def is_reviewer_owner(form, field):
-    #Check if reviewer is not owner
-    id = field.data # reviewer's id
-    product_id = form.data['product_id'] # the product id as target for review
-    product = Product.query.filter(Product.id == product_id).first()
-
-    if id == product.user_id:
-        raise ValidationError("Owner is not eligible to make a review of own product")
-
-def is_reviewer_has_review_already(form, field):
-    #Check reviewer has no review for the product   
-    user_id = field.data # reviewer's id
-    review = Review.query.filter(Review.user_id == user_id).first()
-
-    if review:
-        raise ValidationError("User is not eligible to make a review because there one review already")
+from wtforms.validators import DataRequired, Length, NumberRange
 
 class ReviewForm(FlaskForm):
-
-    # user_id = IntegerField("user_id", validators=[
-    #     DataRequired("User should not be empty"),
-    #     is_reviewer_exists,
-    #     is_reviewer_owner,
-    #     is_reviewer_has_review_already
-    #     ])
 
     rating = IntegerField("rating",
         validators=[
