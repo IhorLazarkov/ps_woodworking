@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Product, User
+from app.models import db, Product, User, Review
 from app.forms.product_form import ProductForm
 
 product_routes = Blueprint('products', __name__)
@@ -110,3 +110,25 @@ def get_product_details(id):
         "firstName": product[0].user.first_name
     }
     return result, 200
+
+@product_routes.route("/<int:id>/reviews")
+def get_product_reviews(id):
+
+    product = Product.query.filter(Product.id == id).first()
+    if product is None:
+        return {"errors": {"message": "Product not found"}}, 404
+    
+    reviews = db.session.query(Review, Product, User).filter(Product.id == id).join("product").join("user").all()
+    if reviews is not None:
+        result = []
+        for [review, product, user] in reviews:
+            review = review.to_dict()
+            review["user"] = {
+                "id":user.id,
+                "firstName":user.first_name
+            }
+            result.append(review)
+            
+        return {"reviews": result}, 200
+
+    return {"errors": {"message":"failed"}}, 500
