@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import User, Product, Review, NumberRange
+from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
+from app.models import User, Product, Review
 
 def is_reviewer_exists(form, field):
     #Check if reviewer exists
@@ -30,12 +30,12 @@ def is_reviewer_has_review_already(form, field):
 
 class ReviewForm(FlaskForm):
 
-    user_id = IntegerField("user_id", validators=[
-        DataRequired("User should not be empty"),
-        is_reviewer_exists,
-        is_reviewer_owner,
-        is_reviewer_has_review_already
-        ])
+    # user_id = IntegerField("user_id", validators=[
+    #     DataRequired("User should not be empty"),
+    #     is_reviewer_exists,
+    #     is_reviewer_owner,
+    #     is_reviewer_has_review_already
+    #     ])
 
     rating = IntegerField("rating",
         validators=[
