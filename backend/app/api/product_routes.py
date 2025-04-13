@@ -99,19 +99,26 @@ def update_product(id):
 
 @product_routes.route("/<int:id>")
 def get_product_details(id):
+    """
+    Get product details
+    """
     product = db.session.query(Product, User).filter(id == id).join("user").first()
 
     if product is None:
         return {"errors": { "message": "Product not found"}}, 404
+    result = product[0].to_dict()
 
     stats = db.session.query(
         func.count(Review.id).label("numOfRating"),
         func.sum(Review.rating).label("totalRatings")
     ).filter_by(product_id = id).first()
     
-    result = product[0].to_dict()
+    if stats["numOfRating"] is not 0:
+        result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
+    else:
+        result["avgStarRaating"] = 0
+        
     result["numOfReview"] = stats["numOfRating"]
-    result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
     result["seller"] = {
         "id": product[0].user.id,
         "userName": product[0].user.username,
