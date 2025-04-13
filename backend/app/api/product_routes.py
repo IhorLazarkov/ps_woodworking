@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product, User, Review
@@ -102,8 +103,15 @@ def get_product_details(id):
 
     if product is None:
         return {"errors": { "message": "Product not found"}}, 404
+
+    stats = db.session.query(
+        func.count(Review.id).label("numOfRating"),
+        func.sum(Review.rating).label("totalRatings")
+    ).filter_by(product_id = id).first()
     
     result = product[0].to_dict()
+    result["numOfReview"] = stats["numOfRating"]
+    result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
     result["seller"] = {
         "id": product[0].user.id,
         "userName": product[0].user.username,
