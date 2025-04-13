@@ -3,6 +3,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product, User, Review
 from app.forms.product_form import ProductForm
+from app.forms.review_form import ReviewForm
 
 product_routes = Blueprint('products', __name__)
 
@@ -126,6 +127,9 @@ def get_product_details(id):
     }
     return result, 200
 
+#
+# REVIEWS
+#
 @product_routes.route("/<int:id>/reviews")
 def get_product_reviews(id):
 
@@ -147,3 +151,43 @@ def get_product_reviews(id):
         return {"reviews": result}, 200
 
     return {"errors": {"message":"failed"}}, 500
+
+@product_routes.route("/<int:id>/reviews", methods=["POST"])
+@login_required
+def add_review(id):
+    """
+    Create Review
+    """
+    if not current_user.is_authenticated:
+        return { 'errors': { "message": "Unauthorized" } }, 401
+
+    product = Product.query.filter(Product.id == id).first()
+    if product is None: return {"errors": {"message":"Product not found"}}, 404
+
+    # Prohibit owner
+    if product.seller_id == current_user.id:
+        return {"errors": {"message": "Owner is not allowed to make a review"}}, 403
+
+    # Check if user has review already
+    reviews = db.session.query(Review, Product).filter_by(product_id = id).join("product").all()
+    for [review, products] in reviews:
+            if review.user_id == current_user.id:
+                return {"errors": {"message": "Only one review is allowed"}}, 403
+    
+    # Add review
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review = Review(
+            rating = form.data["rating"],
+            review = form.data["review"]
+        )
+        review.user = current_user
+        review.product = product
+        
+        db.session.add(review)
+        db.session.commit()
+        
+        return review.to_dict(), 201
+
+    return {"errors": form.errors}, 400
