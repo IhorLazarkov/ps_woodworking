@@ -40,7 +40,7 @@ def create_product():
         
         return product.to_dict(), 201
 
-    return form.errors, 500
+    return {"message":form.errors}, 400
 
 @product_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
@@ -95,8 +95,8 @@ def update_product(id):
 
         if product.seller_id != current_user.id:
             return { "errors": { "message":"Unathorized to update"}}, 401
-    
-    return {"errors": { "message":"failed" }}, 500
+        
+    return {"errors": form.errors }, 500
 
 @product_routes.route("/<int:id>")
 def get_product_details(id):
