@@ -1,7 +1,7 @@
 from sqlalchemy import func
 from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import db, Product, Review, User
+from app.models import db, Product, Review, User, Image
 
 session_routes = Blueprint('sessions', __name__)
 
@@ -26,6 +26,8 @@ def get_current_user_products():
                 result["avgRating"] = 0
             else: 
                 result["avgRating"] = stats["totalRating"] / stats["numOfReviews"]
+            previewImage = Image.query.filter(Image.product_id == product.id and Image.preview == True).first()
+            result["previewImage"] = previewImage.url
             response.append(result)
 
     return {"products": response}, 200
