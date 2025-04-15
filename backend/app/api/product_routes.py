@@ -22,7 +22,10 @@ def get_products():
             func.count(Review.id).label("numOfRating"),
             func.sum(Review.rating).label("totalRating")
         ).filter_by(product_id = product.id).first()
-        reply["avgRating"] = avgRating[0]
+        if avgRating["numOfRating"] == 0:
+            reply["avgRating"] = 0
+        else:
+            reply["avgRating"] = avgRating["totalRating"] / avgRating["numOfRating"]
         # 3. provide preview url
         previewImage = Image.query.filter(Image.product_id == product.id and Image.preview == True).first()
         reply["previewImage"] = previewImage.url
