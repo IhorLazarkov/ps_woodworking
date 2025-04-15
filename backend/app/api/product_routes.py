@@ -1,7 +1,7 @@
 from sqlalchemy import func
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Product, User, Review
+from app.models import db, Product, User, Review, Image
 from app.forms.product_form import ProductForm
 from app.forms.review_form import ReviewForm
 
@@ -12,8 +12,23 @@ def get_products():
     """
     Get All Products
     """
+    response = []
     products = Product.query.all()
-    return {'products': [product.to_dict() for product in products]}
+    for product in products:
+        # 1. provide info for product
+        reply = product.to_dict()
+        # 2. provide info average rating
+        avgRating = db.session.query(
+            func.count(Review.id).label("numOfRating"),
+            func.sum(Review.rating).label("totalRating")
+        ).filter_by(product_id = product.id).first()
+        reply["avgRating"] = avgRating[0]
+        # 3. provide preview url
+        previewImage = Image.query.filter(Image.product_id == product.id and Image.preview == True).first()
+        reply["previewImage"] = previewImage.url
+        response.append(reply)
+        
+    return {'products': response}
 
 @product_routes.route("/", methods=['POST'])
 @login_required
