@@ -22,7 +22,7 @@ def get_current_user_products():
                 func.count(Review.id).label("numOfReviews"),
                 func.sum(Review.rating).label("totalRating")
             ).filter_by(product_id = product.id).first()
-            if stats["numOfReviews"] is not 0:
+            if stats["numOfReviews"] != 0:
                 result["avgRating"] = stats["totalRating"] / stats["numOfReviews"]
             else: result["avgRating"] = 0
             response.append(result)

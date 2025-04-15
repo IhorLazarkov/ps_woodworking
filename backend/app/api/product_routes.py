@@ -114,7 +114,7 @@ def get_product_details(id):
         func.sum(Review.rating).label("totalRatings")
     ).filter_by(product_id = id).first()
     
-    if stats["numOfRating"] is not 0:
+    if stats["numOfRating"] != 0:
         result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
     else:
         result["avgStarRaating"] = 0
