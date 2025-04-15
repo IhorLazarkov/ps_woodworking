@@ -121,10 +121,11 @@ def get_product_details(id):
     """
     Get product details
     """
-    product = db.session.query(Product, User).filter(id == id).join("user").first()
+    product = db.session.query(Product, User, Image).filter(Product.id == id).join("user").join("images").first()
 
     if product is None:
         return {"errors": { "message": "Product not found"}}, 404
+    
     result = product[0].to_dict()
 
     stats = db.session.query(
@@ -132,17 +133,19 @@ def get_product_details(id):
         func.sum(Review.rating).label("totalRatings")
     ).filter_by(product_id = id).first()
     
-    if stats["numOfRating"] != 0:
-        result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
-    else:
+    if stats["numOfRating"] == 0:
         result["avgStarRaating"] = 0
+    else:
+        result["avgStarRaating"] = stats["totalRatings"] / stats["numOfRating"]
         
-    result["numOfReview"] = stats["numOfRating"]
+    result["numReview"] = stats["numOfRating"]
     result["seller"] = {
         "id": product[0].user.id,
         "userName": product[0].user.username,
         "firstName": product[0].user.first_name
     }
+    result["productImages"] = [image.to_dict() for image in product[0].images]
+    
     return result, 200
 
 #
