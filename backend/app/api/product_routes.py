@@ -53,7 +53,15 @@ def create_product():
             quantity = form.data["quantity"],
             description = form.data["description"]
             )
+        images = []
+        images.append(Image(product = product, url = form.data["previewImage"], preview=True))
+        if form.data["image1"] is not None: images.append(Image(product = product, url = form.data["image1"]))
+        if form.data["image2"] is not None: images.append(Image(product = product, url = form.data["image2"]))
+        if form.data["image3"] is not None: images.append(Image(product = product, url = form.data["image3"]))
+        if form.data["image4"] is not None: images.append(Image(product = product, url = form.data["image4"]))
+        if form.data["image5"] is not None: images.append(Image(product = product, url = form.data["image5"]))
         db.session.add(product)
+        db.session.add_all(images)
         db.session.commit()
         
         return product.to_dict(), 201
