@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from app.models.products import favorites_table
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
@@ -21,6 +22,13 @@ class User(db.Model, UserMixin):
     products = relationship("Product", back_populates="user", cascade="all, delete")
     reviews = relationship("Review", back_populates="user", cascade="all, delete")
     orders = relationship("Order", back_populates="user", cascade="all, delete")
+    favorites = relationship("Favorite", back_populates="user", cascade="all, delete")
+      # Many-to-many favorites via join table
+    favorite_products = relationship(
+        "Product",
+        secondary=favorites_table,
+        back_populates="favorited_by"
+    )
 
     @property
     def password(self):
