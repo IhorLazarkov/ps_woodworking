@@ -22,7 +22,6 @@ class User(db.Model, UserMixin):
     products = relationship("Product", back_populates="user", cascade="all, delete")
     reviews = relationship("Review", back_populates="user", cascade="all, delete")
     orders = relationship("Order", back_populates="user", cascade="all, delete")
-    favorites = relationship("Favorite", back_populates="user", cascade="all, delete")
       # Many-to-many favorites via join table
     favorite_products = relationship(
         "Product",
