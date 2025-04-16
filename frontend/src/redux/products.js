@@ -39,7 +39,7 @@ export const fetchProducts = () => async (dispatch) => {
     }
 
     const data = await response.json()
-    dispatch(setProducts(data.Products))
+    dispatch(setProducts(data.products))
 }
 
 //~ fetch single
@@ -51,7 +51,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     }
 
     const data = await response.json()
-    dispatch(setProductDetails(data.Product));
+    dispatch(setProductDetails(data.product));
     return response;
 }
 
