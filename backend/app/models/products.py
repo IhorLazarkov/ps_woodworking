@@ -6,10 +6,8 @@ from sqlalchemy.orm import relationship
 favorites_table = db.Table(
     'favorites',
     db.Model.metadata,
-    db.Column('id', db.Integer, primary_key=True),  # ✅ auto-incrementing ID
-    db.Column('user_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False),
-    db.Column('product_id', db.Integer, db.ForeignKey(add_prefix_for_prod('products.id'), ondelete="CASCADE"), nullable=False),
-    db.Column('created_at', db.DateTime, server_default=db.func.now())
+    db.Column('user_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
+    db.Column('product_id', db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), primary_key=True)
 )
 
 if environment == "production":

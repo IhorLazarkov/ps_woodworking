@@ -85,13 +85,11 @@ def upgrade():
     )
     op.create_table(
         'favorites',
-        sa.Column('id', sa.Integer(), primary_key=True),
         sa.Column('user_id', sa.Integer(), nullable=False),
         sa.Column('product_id', sa.Integer(), nullable=False),
-        sa.Column('created_at', sa.DateTime(), server_default=sa.func.now()),
         sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
         sa.ForeignKeyConstraint(['product_id'], ['products.id'], ondelete='CASCADE'),
-        sa.UniqueConstraint('user_id', 'product_id')
+        sa.PrimaryKeyConstraint('user_id', 'product_id')
     )
     # ### end Alembic commands ###
 
