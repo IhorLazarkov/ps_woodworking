@@ -19,6 +19,18 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: 'products',
+        element: <AllProductsPage />,
+      },
+      {
+        path: 'product/:productId',
+        element: <ProductDetailsPage />,
+      },
+      {
+        path: 'session',
+        element: <UserAccountPage />
+      }
     ],
   },
 ]);
