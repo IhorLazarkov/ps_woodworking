@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from flask_login import current_user
 from sqlalchemy.orm import relationship
 
 # Join Table for Favorites (User ↔ Product)
@@ -54,5 +55,6 @@ class Product(db.Model):
             "url": self.url,
             "preview": self.preview,
             "created_at": self.created_at.isoformat() if self.created_at else None,
-            "favorite_count": len(self.favorited_by)  # Optional: include favorite count
+            "favorite_count": len(self.favorited_by),  # Optional: include favorite count
+            "is_favorited": current_user.is_authenticated and current_user in self.favorited_by
         }
