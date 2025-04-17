@@ -23,7 +23,7 @@ export const ProductDetails = () => {
 			<div className='product-details-info'>
 				<div className='product-seller-description'>
 					<p className='product-seller'>
-						{`Sold by ${product.Seller?.firstName} ${product.Seller?.lastName}`}
+						{`Sold by ${product.Seller?.firstName}`}
 					</p>
 					<p className='product-description'>{product.description}</p>
 				</div>
