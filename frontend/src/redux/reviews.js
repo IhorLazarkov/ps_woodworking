@@ -67,3 +67,29 @@ export const deleteProductReview = (productId, reviewId) => async (dispatch) => 
 }
 
 //!Reducer
+const initialState = {}
+
+const reviewsReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case SET_REVIEWS:
+            return { ...state, [action.payload.productId]: action.payload.reviews };
+        case ADD_REVIEW:
+            return { ...state,
+                [action.payload.productId]: [
+                    ...(state[action.payload.productId] || []), // handle cases where no reviews
+                    action.payload.review,
+                ],
+            };
+        case REMOVE_REVIEW:
+            return {
+                ...state,
+                [action.payload.productId]: (state[action.payload.productId] || []).filter(
+                    (revew) => review.id !== action.payload.reviewId
+                ),
+            };
+        default:
+            return state;
+    }
+};
+
+export default reviewsReducer;

@@ -106,7 +106,7 @@ export const updateProduct = (productId, productData) => async (dispatch) => {
     }
 
     const data = await response.json();
-    dispatch(setProduct(data.product)); // Assuming your API returns the updated product
+    dispatch(setProductDetails(data.product)); // Assuming your API returns the updated product
     return data;
 };
 
