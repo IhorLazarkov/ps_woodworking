@@ -22,7 +22,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     seller_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     product_name = db.Column(db.String(50), nullable = False)
-    product_price = db.Column(db.Numeric(precision = 8, scale = 2), nullable=False)
+    product_price = db.Column(db.Numeric(precision=8, scale = 2), default=0)
     department = db.Column(db.String(50), nullable=False)
     quantity = db.Column(db.Integer, default = 0)
     description = db.Column(db.String(255), nullable = False)
