@@ -142,9 +142,9 @@ def get_product_details(id):
     ).filter_by(product_id = id).first()
     
     if stats["numOfRating"] == 0:
-        result["avgStarRating"] = 0
+        result["avgRating"] = 0
     else:
-        result["avgStarRating"] = stats["totalRatings"] / stats["numOfRating"]
+        result["avgRating"] = stats["totalRatings"] / stats["numOfRating"]
         
     result["numReview"] = stats["numOfRating"]
     result["seller"] = {
