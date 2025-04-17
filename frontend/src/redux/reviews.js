@@ -84,7 +84,7 @@ const reviewsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 [action.payload.productId]: (state[action.payload.productId] || []).filter(
-                    (revew) => review.id !== action.payload.reviewId
+                    (review) => review.id !== action.payload.reviewId
                 ),
             };
         default:
