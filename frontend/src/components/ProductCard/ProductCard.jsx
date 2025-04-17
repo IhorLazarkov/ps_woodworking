@@ -15,7 +15,7 @@ function ProductCard({ product }) {
           <h3>{product.product_name}</h3>
           <FontAwesomeIcon icon={faStar} /> {product.avgRating}
         </div>
-        <div className="product-card-price">${product.product_price} / night</div>
+        <div className="product-card-price">${product.product_price}</div>
       </div>
     </div>
   );

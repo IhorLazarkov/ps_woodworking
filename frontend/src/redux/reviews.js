@@ -1,6 +1,6 @@
-const SET_REVIEWS = 'products/SET_REVIEWS';
-const ADD_REVIEW = 'products/ADD_REVIEW';
-const REMOVE_REVIEW = 'products/REMOVE_REVIEW';
+const SET_REVIEWS = 'reviews/SET_REVIEWS';
+const ADD_REVIEW = 'reviews/ADD_REVIEW';
+const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 
 
 //! Action creators
