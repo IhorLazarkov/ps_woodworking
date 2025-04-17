@@ -1,18 +1,82 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
-function Navigation() {
+function ShoppingCartButton({ cartItemCount = 0 }) {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+    <NavLink to="/cart" className="shopping-cart-button">
+      <FontAwesomeIcon icon={faShoppingCart} />
+      {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
+    </NavLink>
+  );
+}
 
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+function Navigation() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery("");
+    }
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
+  return (
+    <nav className="navigation">
+      <NavLink to="/" className="logo">PSW</NavLink>
+
+      {/* Categories Dropdown */}
+      <div className="dropdown" onBlur={closeDropdown} tabIndex={0}>
+        <button className="dropdown-toggle" onClick={toggleDropdown}>
+          <FontAwesomeIcon icon={faBars} />
+          Categories
+        </button>
+        {isDropdownOpen && (
+          <ul className="dropdown-menu">
+            <NavLink to="/category/furniture" onClick={closeDropdown}>Furniture</NavLink>
+            <NavLink to="/category/tools" onClick={closeDropdown}>Tools</NavLink>
+            <NavLink to="/category/decor" onClick={closeDropdown}>Decor</NavLink>
+          </ul>
+        )}
+      </div>
+
+      {/* Search */}
+      <div className="search-container">
+        <form onSubmit={handleSearchSubmit} className="search-form">
+          <div className="search-input">
+            <input
+              type="text"
+              placeholder="Need some wood...?"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input-field"
+            />
+          </div>
+          <div className="search-icon">
+            <button type="submit" className="search-button">
+              <FontAwesomeIcon icon={faSearch} />
+            </button>
+          </div>
+        </form>
+      </div>
+      {/* Profile & Cart */}
+      <ProfileButton />
+      <ShoppingCartButton cartItemCount={0} />
+    </nav>
   );
 }
 

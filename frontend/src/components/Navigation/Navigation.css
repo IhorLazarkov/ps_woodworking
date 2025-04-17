@@ -1,3 +1,39 @@
 .profile-dropdown {
   position: absolute;
 }
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: lightgray solid 1px;
+  padding: 10px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Times New Roman', Times, serif;
+  color: rgb(196, 134, 54);
+  text-shadow: -1px -1px 0 rgba(0, 13, 88, 0.753),
+    1px -1px 0 rgba(0, 13, 88, 0.753),
+    -1px 1px 0 rgba(0, 13, 88, 0.753),
+    1px 1px 0 rgba(0, 13, 88, 0.753);
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 23px;
+}
+
+.search-button {
+  color: rgba(0, 13, 88, 0.753);
+  background-color: rgb(196, 134, 54);
+  cursor: pointer;
+}
