@@ -20,10 +20,12 @@ class Product(db.Model):
     user = relationship("User", back_populates="products")
     order_items = relationship('Order_Item', back_populates='products', cascade="all, delete")
     reviews = relationship("Review", back_populates="product", cascade="all, delete")
+    images = relationship("Image", back_populates="product", cascade = "all, delete")
     
     def to_dict(self):
         return {
             "id": self.id,
+            "sellerId":self.seller_id,
             "name": self.product_name,
             "price": self.product_price,
             "department": self.department,
