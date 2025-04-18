@@ -44,7 +44,7 @@ export const ProductDetails = () => {
             <p className="purchase-price">{`$${product.price}`}</p>
             <p className="product-review">
               <FontAwesomeIcon icon={faStar} />{' '}
-              {product.avgStarRating || 'New'}
+              {product.avgRating || 'New'}
               {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
             </p>
           </div>
@@ -65,7 +65,7 @@ export const ProductDetails = () => {
 
       <div className="line-break"></div>
 
-      <div className="review-content">
+      {/* <div className="review-content">
         <div className="review-heading">
           <p className="review-title">
             <FontAwesomeIcon icon={faStar} /> {product.avgRating || 'New'}{' '}
@@ -74,7 +74,7 @@ export const ProductDetails = () => {
               : ''}
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
