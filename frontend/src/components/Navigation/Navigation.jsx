@@ -42,7 +42,9 @@ function Navigation() {
       {/* Categories Dropdown */}
       <div className="dropdown" onBlur={closeDropdown} tabIndex={0}>
         <button className="dropdown-toggle" onClick={toggleDropdown}>
-          <FontAwesomeIcon icon={faBars} />
+          <div>
+            <FontAwesomeIcon icon={faBars} className="bars-icon" />
+          </div>
           Categories
         </button>
         {isDropdownOpen && (
@@ -66,16 +68,18 @@ function Navigation() {
               className="search-input-field"
             />
           </div>
-          <div className="search-icon">
+          <div>
             <button type="submit" className="search-button">
-              <FontAwesomeIcon icon={faSearch} />
+              <div>
+                <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              </div>
             </button>
           </div>
         </form>
       </div>
       {/* Profile & Cart */}
       <ProfileButton />
-      <ShoppingCartButton cartItemCount={0} />
+      <ShoppingCartButton cartItemCount={0} className="shopping-cart-button" />
     </nav>
   );
 }
