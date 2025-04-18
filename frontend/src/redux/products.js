@@ -51,7 +51,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     }
 
     const data = await response.json()
-    dispatch(setProductDetails(data.product));
+    dispatch(setProductDetails(data));
     return response;
 }
 

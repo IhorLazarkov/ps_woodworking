@@ -8,7 +8,7 @@ import './ProductDetailsPage.css';
 export const ProductDetails = () => {
     const { productId } = useParams();
     const dispatch = useDispatch();
-    const product = useSelector((state) => state.products.product[productId]);
+    const product = useSelector((state) => state.products.productDetails);
 
     // fetch
     useEffect(() => {
