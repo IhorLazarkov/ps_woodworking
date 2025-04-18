@@ -33,10 +33,10 @@ export const router = createBrowserRouter([
         path: 'product/:productId',
         element: <ProductDetails />,
       },
-      {
-        path: 'session',
-        element: <UserAccountPage />
-      }
+      // {
+      //   path: 'session',
+      //   element: <UserAccountPage />
+      // }
     ],
   },
 ]);

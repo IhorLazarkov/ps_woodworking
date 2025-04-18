@@ -7,15 +7,15 @@ function ProductCard({ product }) {
     <div className="product-card">
       <img
         src={product.previewImage}
-        alt={product.product_name}
+        alt={product.name}
         className="product-card-image"
       />
       <div className="product-card-contnet">
         <div className="product-card-rating">
-          <h3>{product.product_name}</h3>
+          <h3>{product.name}</h3>
           <FontAwesomeIcon icon={faStar} /> {product.avgRating}
         </div>
-        <div className="product-card-price">${product.product_price}</div>
+        <div className="product-card-price">${product.price}</div>
       </div>
     </div>
   );
