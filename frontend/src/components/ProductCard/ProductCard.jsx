@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../context/CartContext";
+import { toast } from 'react-toastify';
 import "./ProductCard.css";
 
 function ProductCard({ product }) {
@@ -25,7 +26,7 @@ function ProductCard({ product }) {
             e.stopPropagation();
             e.preventDefault();
             addToCart(product);
-            alert(`${product.name} added to cart!`);
+            toast.success((`${product.name} added to cart!`));
           }}
         >
           Add to Cart

@@ -19,7 +19,7 @@ function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { cart, totalItems } = useCart();
+  const { totalItems } = useCart();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

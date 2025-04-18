@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProductDetails } from '../../redux/products';
+import { toast } from 'react-toastify';
 import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +29,7 @@ export const ProductDetails = () => {
       <div className="product-details-info">
         <div className="product-seller-description">
           <p className="product-seller">
-            {`Sold by ${product.Seller?.firstName}`}
+            {`Sold by ${product.seller?.firstName}`}
           </p>
           <p className="product-description">{product.description}</p>
         </div>
@@ -45,7 +46,10 @@ export const ProductDetails = () => {
 
           <button
             className="add-to-cart-btn"
-            onClick={() => addToCart(product)}
+            onClick={() => {
+              addToCart(product);
+              toast.success((`${product.name} added to cart!`));
+            }}
           >
             Add to Cart
           </button>
