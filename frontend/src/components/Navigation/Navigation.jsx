@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ProfileButton from "./ProfileButton";
+import { useCart } from "../../context/CartContext";
 import CategoriesModal from "./Catagories";
 import "./Navigation.css";
 
@@ -18,6 +19,7 @@ function ShoppingCartButton({ cartItemCount = 0 }) {
 function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const { totalItems } = useCart();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +77,7 @@ function Navigation() {
       </div>
       {/* Profile & Cart */}
       <ProfileButton />
-      <ShoppingCartButton cartItemCount={0} className="shopping-cart-button" />
+      <ShoppingCartButton cartItemCount={totalItems} className="shopping-cart-button" />
     </nav>
   );
 }
