@@ -5,6 +5,7 @@ import ProductsPage from '../components/AllProductsPage';
 import ProductDetails from '../components/ProductDetailsPage';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage';
+import CartPage from "../components/CartPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         path: 'product/:productId',
         element: <ProductDetails />,
       },
+      {
+        path: "/cart",
+        element: <CartPage />
+      }
       // {
       //   path: 'session',
       //   element: <UserAccountPage />
