@@ -19,7 +19,7 @@ function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { cart } = useCart();
+  const { cart, totalItems } = useCart();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -81,7 +81,7 @@ function Navigation() {
       </div>
       {/* Profile & Cart */}
       <ProfileButton />
-      <ShoppingCartButton cartItemCount={cart.length} className="shopping-cart-button" />
+      <ShoppingCartButton cartItemCount={totalItems} className="shopping-cart-button" />
     </nav>
   );
 }

@@ -13,7 +13,7 @@ function ProductCard({ product }) {
         alt={product.name}
         className="product-card-image"
       />
-      <div className="product-card-contnet">
+      <div className="product-card-content">
         <div className="product-card-rating">
           <h3>{product.name}</h3>
           <FontAwesomeIcon icon={faStar} /> {product.avgRating || "New"}
@@ -21,7 +21,12 @@ function ProductCard({ product }) {
         <div className="product-card-price">${product.price}</div>
         <button
           className="add-to-cart-button"
-          onClick={() => addToCart(product)}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            addToCart(product);
+            alert(`${product.name} added to cart!`);
+          }}
         >
           Add to Cart
         </button>
