@@ -13,7 +13,7 @@ function LandingPage() {
 
     useEffect(() => {
         dispatch(fetchProducts()).then(() => setIsLoaded(true))
-    }, dispatch)
+    }, [dispatch])
 
     return (
         <>
@@ -23,8 +23,8 @@ function LandingPage() {
                     ? <h3>Loading ...</h3>
                     : <>
                         {products && products.map(p => {
-                            return <Link to={`product/${p.id}`}>
-                                < ProductCard key={p.id} product={p} />
+                            return <Link key={p.id} to={`product/${p.id}`}>
+                                < ProductCard product={p} />
                             </Link>
                         })}
                     </>

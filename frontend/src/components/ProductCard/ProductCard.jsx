@@ -10,7 +10,7 @@ function ProductCard({ product }) {
         alt={product.name}
         className="product-card-image"
       />
-      <div className="product-card-contnet">
+      <div className="product-card-content">
         <div className="product-card-rating">
           <h3>{product.name}</h3>
           <FontAwesomeIcon icon={faStar} /> {product.avgRating}
