@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ProfileButton from "./ProfileButton";
 import { useCart } from "../../context/CartContext";
+import CategoriesModal from "./Catagories";
 import "./Navigation.css";
 
 function ShoppingCartButton({ cartItemCount = 0 }) {
@@ -17,7 +18,6 @@ function ShoppingCartButton({ cartItemCount = 0 }) {
 
 function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { totalItems } = useCart();
 
@@ -29,20 +29,13 @@ function Navigation() {
     }
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
-
-  const closeDropdown = () => {
-    setIsDropdownOpen(false);
-  };
 
   return (
     <nav className="navigation">
       <NavLink to="/" className="logo">PSW</NavLink>
 
-      {/* Categories Dropdown */}
-      <div className="dropdown" onBlur={closeDropdown} tabIndex={0}>
+
+      {/* <div className="dropdown" onBlur={closeDropdown} tabIndex={0}>
         <button className="dropdown-toggle" onClick={toggleDropdown}>
           <div>
             <FontAwesomeIcon icon={faBars} className="bars-icon" />
@@ -51,12 +44,15 @@ function Navigation() {
         </button>
         {isDropdownOpen && (
           <ul className="dropdown-menu">
-            <NavLink to="/category/furniture" onClick={closeDropdown}>Furniture</NavLink>
-            <NavLink to="/category/tools" onClick={closeDropdown}>Tools</NavLink>
-            <NavLink to="/category/decor" onClick={closeDropdown}>Decor</NavLink>
+            <NavLink to="/c/furniture" onClick={closeDropdown}>Furniture</NavLink>
+            <NavLink to="/c/tools" onClick={closeDropdown}>Tools</NavLink>
+            <NavLink to="/c/decor" onClick={closeDropdown}>Decor</NavLink>
           </ul>
         )}
-      </div>
+      </div> */}
+      <CategoriesModal />
+
+
 
       {/* Search */}
       <div className="search-container">

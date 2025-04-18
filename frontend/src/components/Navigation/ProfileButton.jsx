@@ -1,77 +1,107 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle, } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
+
+
+function Modal({ isOpen, onClose, children }) {
+  if (!isOpen) return null;
+
+  return (
+    <div style={styles.backdrop} onClick={onClose}>
+      <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button style={styles.closeButton} onClick={onClose}>×</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function ProfileButton() {
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
-  const ulRef = useRef();
+  const [showModal, setShowModal] = useState(false);
 
-  const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
-  };
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
-  const closeMenu = () => setShowMenu(false);
+  const toggleModal = () => setShowModal(!showModal);
+  const closeModal = () => setShowModal(false);
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
-    closeMenu();
+    closeModal();
   };
 
   return (
     <>
-      <button onClick={toggleMenu} className="profile-button">
+      <button onClick={toggleModal} className="profile-button">
         <FaUserCircle className="profile-icon" />
       </button>
-      {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
-      )}
+
+      <Modal isOpen={showModal} onClose={closeModal}>
+        {user ? (
+          <ul style={styles.menu}>
+            <li>{user.username}</li>
+            <li>{user.email}</li>
+            <li>
+              <button onClick={logout}>Log Out</button>
+            </li>
+          </ul>
+        ) : (
+          <ul style={styles.menu}>
+            <OpenModalMenuItem
+              itemText="Log In"
+              onItemClick={closeModal}
+              modalComponent={<LoginFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="Sign Up"
+              onItemClick={closeModal}
+              modalComponent={<SignupFormModal />}
+            />
+          </ul>
+        )}
+      </Modal>
     </>
   );
 }
+
+const styles = {
+  backdrop: {
+    position: 'fixed',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000
+  },
+  modal: {
+    background: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    minWidth: '180px',
+    position: 'fixed',
+    top: '89px', right: '80px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
+  },
+  closeButton: {
+    position: 'absolute',
+    top: '10px',
+    right: '15px',
+    background: 'transparent',
+    border: 'none',
+    fontSize: '20px',
+    cursor: 'pointer'
+  },
+  menu: {
+    listStyle: 'none',
+    padding: 0,
+    margin: 0
+  }
+};
 
 export default ProfileButton;

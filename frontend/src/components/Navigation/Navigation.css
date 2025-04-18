@@ -23,6 +23,11 @@
     1px 1px 0 rgba(0, 13, 88, 0.753);
 }
 
+.dropdown-toggle:hover {
+  background-color: rgba(128, 128, 128, 0.253);
+  border-radius: 25px;
+}
+
 .dropdown-toggle {
   display: flex;
   justify-content: center;

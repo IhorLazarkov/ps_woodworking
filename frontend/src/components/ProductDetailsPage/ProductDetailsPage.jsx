@@ -27,6 +27,11 @@ export const ProductDetails = () => {
       </div>
 
       <div className="product-details-info">
+        <img
+          src={product.previewImage}
+          alt={product.name}
+          className="product-card-image"
+        />
         <div className="product-seller-description">
           <p className="product-seller">
             {`Sold by ${product.seller?.firstName}`}
@@ -48,7 +53,7 @@ export const ProductDetails = () => {
             className="add-to-cart-btn"
             onClick={() => {
               addToCart(product);
-              toast.success((`${product.name} added to cart!`));
+              toast.success(`${product.name} added to cart!`);
             }}
           >
             Add to Cart
@@ -72,7 +77,6 @@ export const ProductDetails = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProductDetails;
-
