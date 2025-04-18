@@ -6,21 +6,26 @@ import './ProductDetailsPage.css';
 
 
 export const ProductDetails = () => {
-    const { productId } = useParams();
-    const dispatch = useDispatch();
-    const product = useSelector((state) => state.products.productDetails);
+	const { productId } = useParams();
+	const dispatch = useDispatch();
+	const product = useSelector((state) => state.products.productDetails);
 
-    // fetch
-    useEffect(() => {
-        dispatch(fetchProductDetails(productId));
-    }, [dispatch, productId]);
+	// fetch
+	useEffect(() => {
+		dispatch(fetchProductDetails(productId));
+	}, [dispatch, productId]);
 
-    return (
-        <div className='product-details'>
+	return (
+		<div className='product-details'>
 			<div className='product-main-titles'>
 				<h1 className='product-details-title'>{product.name}</h1>
 			</div>
 			<div className='product-details-info'>
+				<img
+					src={product.previewImage}
+					alt={product.name}
+					className="product-card-image"
+				/>
 				<div className='product-seller-description'>
 					<p className='product-seller'>
 						{`Sold by ${product.Seller?.firstName}`}
@@ -58,7 +63,7 @@ export const ProductDetails = () => {
 				</div>
 			</div>
 		</div>
-    )
+	)
 }
 
 

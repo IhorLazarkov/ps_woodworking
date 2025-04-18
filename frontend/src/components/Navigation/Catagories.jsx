@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { fetchProducts } from "../../redux/products";
 
+
 // Simple Modal Component
 function Modal({ isOpen, onClose, children }) {
     if (!isOpen) return null;
@@ -65,7 +66,7 @@ const styles = {
     backdrop: {
         position: 'fixed',
         top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -75,8 +76,9 @@ const styles = {
         background: 'white',
         padding: '20px',
         borderRadius: '8px',
-        minWidth: '280px',
-        position: 'relative',
+        minWidth: '180px',
+        position: 'fixed',
+        top: '89px', left: '150px',
         boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
     },
     closeButton: {

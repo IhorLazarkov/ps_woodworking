@@ -80,11 +80,13 @@ const styles = {
     zIndex: 1000
   },
   modal: {
-    background: '#fff',
+    background: 'white',
     padding: '20px',
     borderRadius: '8px',
-    minWidth: '300px',
-    position: 'relative'
+    minWidth: '180px',
+    position: 'fixed',
+    top: '89px', right: '80px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
   },
   closeButton: {
     position: 'absolute',
