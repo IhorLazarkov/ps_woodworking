@@ -16,8 +16,12 @@ function ProductCard({ product }) {
       />
       <div className="product-card-content">
         <div className="product-card-rating">
-          <h3>{product.name}</h3>
+          <div className="product-card-name">
+            <h3>{product.name}</h3>
+
+          </div>
           <FontAwesomeIcon icon={faStar} /> {product.avgRating || "New"}
+
         </div>
         <div className="product-card-price">${product.price}</div>
         <button

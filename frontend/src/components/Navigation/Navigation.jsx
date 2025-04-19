@@ -33,26 +33,7 @@ function Navigation() {
   return (
     <nav className="navigation">
       <NavLink to="/" className="logo">PSW</NavLink>
-
-
-      {/* <div className="dropdown" onBlur={closeDropdown} tabIndex={0}>
-        <button className="dropdown-toggle" onClick={toggleDropdown}>
-          <div>
-            <FontAwesomeIcon icon={faBars} className="bars-icon" />
-          </div>
-          Categories
-        </button>
-        {isDropdownOpen && (
-          <ul className="dropdown-menu">
-            <NavLink to="/c/furniture" onClick={closeDropdown}>Furniture</NavLink>
-            <NavLink to="/c/tools" onClick={closeDropdown}>Tools</NavLink>
-            <NavLink to="/c/decor" onClick={closeDropdown}>Decor</NavLink>
-          </ul>
-        )}
-      </div> */}
       <CategoriesModal />
-
-
 
       {/* Search */}
       <div className="search-container">

@@ -46,6 +46,16 @@ function ProfileButton() {
           <ul style={styles.menu}>
             <li>{user.username}</li>
             <li>{user.email}</li>
+            <OpenModalMenuItem
+              itemText="Add Product"
+              onItemClick={closeModal}
+              modalComponent={<SignupFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="My Products"
+              onItemClick={closeModal}
+              modalComponent={<SignupFormModal />}
+            />
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

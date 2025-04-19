@@ -17,7 +17,9 @@ function LandingPage() {
 
     return (
         <>
-            <h1>Landing page</h1>
+            <div className="landing-title">
+                <h1>Welcome to Plane & Simple Woodworking</h1>
+            </div>
             <main id="landing-page">
                 {!isLoaded
                     ? <h3>Loading ...</h3>

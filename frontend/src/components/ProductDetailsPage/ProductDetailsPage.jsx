@@ -27,15 +27,14 @@ export const ProductDetails = () => {
       </div>
 
       <div className="product-details-info">
-        <img
-          src={product.previewImage}
-          alt={product.name}
-          className="product-card-image"
-        />
-        <div className="product-seller-description">
-          <p className="product-seller">
-            {`Sold by ${product.seller?.firstName}`}
-          </p>
+        <div className='product-image-div'>
+          <img
+            src={product.previewImage}
+            alt={product.name}
+            className="product-card-image"
+          />
+        </div>
+        <div>
           <p className="product-description">{product.description}</p>
         </div>
 
