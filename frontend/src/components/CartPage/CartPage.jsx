@@ -5,7 +5,7 @@ export default function CartPage() {
 
   if (cart.length === 0) return <h2>Your cart is empty.</h2>;
 
-  // ✅ Calculate full cart total
+  // Calculate full cart total
   const totalPrice = cart.reduce(
     (sum, product) => sum + product.price * product.quantity,
     0
