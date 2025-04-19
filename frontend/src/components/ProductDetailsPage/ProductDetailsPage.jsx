@@ -19,6 +19,7 @@ export const ProductDetails = () => {
   }, [dispatch, productId]);
 
   if (!product) return null;
+  if (!product.productImages) return null;
 
   return (
     <div className="all-product-details">
@@ -29,7 +30,7 @@ export const ProductDetails = () => {
       <div className="product-details-info">
         <div className='product-image-div'>
           <img
-            src={product.previewImage}
+            src={product.productImages.filter(i => i.preview = true)[0].url}
             alt={product.name}
             className="product-card-image"
           />

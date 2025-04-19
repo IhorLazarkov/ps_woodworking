@@ -40,6 +40,7 @@ export const fetchProducts = () => async (dispatch) => {
 
     const data = await response.json()
     dispatch(setProducts(data.products))
+    return response;
 }
 
 //~ fetch single
@@ -80,7 +81,7 @@ export const createProduct = (productData) => async (dispatch) => {
 
     const data = await response.json();
     dispatch(addProduct(data.product)); // Assuming your API returns the newly created product
-    return data;
+    return response;
 };
 
 //~ delete a product
@@ -115,7 +116,7 @@ export const updateProduct = (productId, productData) => async (dispatch) => {
 
     if (!user || !productDetails || productDetails.seller_id !== user.id) {
         throw new Error('Unauthorized: You must be the owner to update this product.');
-      }
+    }
 
     const response = await fetch(`/api/products/${productId}`, {
         method: 'PUT', // Or PATCH, depending on your API
@@ -147,7 +148,7 @@ const productsReducer = (state = initialState, action) => {
         case SET_PRODUCTS:
             return { ...state, products: action.payload };
         case SET_PRODUCT_DETAILS:
-            return{ ...state, productDetails: action.payload}
+            return { ...state, productDetails: action.payload };
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
         case REMOVE_PRODUCT:
