@@ -45,20 +45,22 @@ function ProfileButton() {
       <Modal isOpen={showModal} onClose={closeModal}>
         {user ? (
           <ul style={styles.menu}>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
+            <li style={styles.li}>{user.username}</li>
+            <li style={styles.li}>{user.email}</li>
             <OpenModalMenuItem
+              styles={styles.productInteraction}
               itemText="Add Product"
               onItemClick={closeModal}
               modalComponent={<ProductForm onClose={closeModal} />}
             />
             <OpenModalMenuItem
+              styles={styles.productInteraction}
               itemText="My Products"
               onItemClick={closeModal}
               modalComponent={<SignupFormModal />}
             />
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li style={styles.li}>
+              <button style={styles.logout} onClick={logout}>Log Out</button>
             </li>
           </ul>
         ) : (
@@ -111,7 +113,25 @@ const styles = {
   menu: {
     listStyle: 'none',
     padding: 0,
-    margin: 0
+    margin: 10
+  },
+  productInteraction: {
+    padding: '10px 0',
+    borderBottom: '1px solid #ccc',
+    cursor: 'pointer'
+  },
+  li: {
+    padding: '10px 0',
+    borderBottom: '1px solid #ccc',
+    cursor: 'pointer'
+  },
+  logout: {
+    background: 'transparent',
+    border: 'none',
+    color: '#007BFF',
+    cursor: 'pointer',
+    fontSize: '16px',
+    margin: '0'
   }
 };
 

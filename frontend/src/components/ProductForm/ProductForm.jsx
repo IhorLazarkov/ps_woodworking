@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createProduct, updateProduct, fetchProductDetails } from '../../redux/products';
 import './ProductForm.css';
 
-function ProductForm({onClose}) {
+function ProductForm({ onClose }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -79,7 +79,7 @@ function ProductForm({onClose}) {
         dispatch(updateProduct(productId, Object.fromEntries(formData)));
         navigate(`/product/${productId}`);
       } else {
-        const newProduct =  dispatch(createProduct(formData));
+        const newProduct = dispatch(createProduct(formData));
         navigate(`/product/${newProduct.id}`);
       }
     } catch (err) {
@@ -93,8 +93,8 @@ function ProductForm({onClose}) {
   };
 
   return (
-    <div className="product-form-container">
-      <h1>{isEditMode ? 'Edit Product' : 'Add New Product'}</h1>
+    <div className="modal-content">
+      <h1 className='model-header'>{isEditMode ? 'Edit Product' : 'Add New Product'}</h1>
       <form onSubmit={handleSubmit}>
         {/* Product Details Fields */}
         <div className="form-group">
@@ -148,7 +148,7 @@ function ProductForm({onClose}) {
 
         <div className="form-actions">
           <button type="submit">{isEditMode ? 'Update Product' : 'Add Product'}</button>
-          <button type="button" onClick={handleCancel}>Cancel</button> 
+          <button type="button" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

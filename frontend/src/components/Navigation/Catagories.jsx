@@ -52,7 +52,7 @@ function CategoriesModal() {
                 <ul style={styles.menu}>
                     {departments.map((dept) => (
                         <li key={dept}>
-                            <NavLink to={`/products/c/${dept}`} onClick={closeModal}>
+                            <NavLink style={styles.NavLink} to={`/products/c/${dept}`} onClick={closeModal}>
                                 {dept}
                             </NavLink>
                         </li>

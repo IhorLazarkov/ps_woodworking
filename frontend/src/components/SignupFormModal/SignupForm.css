@@ -1,0 +1,101 @@
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 90vh;
+    overflow-y: scroll;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+}
+
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.email {
+    font-size: 24px;
+    width: 100%;
+    margin: 10px;
+}
+
+.email-input {
+    width: 97%;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.username {
+    font-size: 24px;
+    width: 100%;
+    margin: 10px;
+}
+
+.username-input {
+    width: 97%;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.password {
+    font-size: 24px;
+    width: 100%;
+    margin: 10px;
+}
+
+.password-input {
+    width: 97%;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.confirm-password {
+    font-size: 24px;
+    width: 100%;
+    margin: 10px;
+}
+
+.confirm-password-input {
+    width: 97%;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.signup-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.signup-btn {
+    width: 75%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+}
