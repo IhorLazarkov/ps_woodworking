@@ -75,7 +75,6 @@ function LoginFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
         <button type="button" onClick={handleDemoLogin} className="demo-login-btn">
           Log In as Demo User
         </button>
