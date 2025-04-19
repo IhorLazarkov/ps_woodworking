@@ -21,7 +21,7 @@ export const ProductDetails = () => {
   if (!product) return null;
 
   return (
-    <div className="product-details">
+    <div className="all-product-details">
       <div className="product-main-titles">
         <h1 className="product-details-title">{product.name}</h1>
       </div>
@@ -34,31 +34,35 @@ export const ProductDetails = () => {
             className="product-card-image"
           />
         </div>
-        <div>
-          <p className="product-description">{product.description}</p>
-        </div>
+        <div className='product-details-text'>
 
-        <div className="purchase-product-div">
-          <div className="price-review-title">
-            <p className="purchase-price">{`$${product.price}`}</p>
-            <p className="product-review">
-              <FontAwesomeIcon icon={faStar} />{' '}
-              {product.avgRating || 'New'}
-              {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
-            </p>
+          <p className="product-review">
+            <FontAwesomeIcon icon={faStar} />{' '}
+            {product.avgRating || 'New'}
+            {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
+          </p>
+          <div className="product-description">
+            <p>{product.description}</p>
           </div>
 
-          <button
-            className="add-to-cart-btn"
-            onClick={() => {
-              addToCart(product);
-              toast.success(`${product.name} added to cart!`);
-            }}
-          >
-            Add to Cart
-          </button>
+          <div className="purchase-product-div">
+            <div className="price-review-title">
+              <p className="purchase-price">{`$${product.price}`}</p>
+            </div>
+            <div className='buttons'>
+              <button
+                className="add-to-cart-btn"
+                onClick={() => {
+                  addToCart(product);
+                  toast.success(`${product.name} added to cart!`);
+                }}
+              >
+                Add to Cart
+              </button>
 
-          <button className="purchase-btn">Purchase</button>
+              <button className="purchase-btn">Purchase</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -66,14 +70,14 @@ export const ProductDetails = () => {
 
       {/* <div className="review-content">
         <div className="review-heading">
-          <p className="review-title">
-            <FontAwesomeIcon icon={faStar} /> {product.avgRating || 'New'}{' '}
-            {product.numReviews
-              ? `· ${product.numReviews} Reviews`
-              : ''}
-          </p>
+        <p className="review-title">
+        <FontAwesomeIcon icon={faStar} /> {product.avgRating || 'New'}{' '}
+        {product.numReviews
+        ? `· ${product.numReviews} Reviews`
+        : ''}
+        </p>
         </div>
-      </div> */}
+        </div> */}
     </div>
   );
 }

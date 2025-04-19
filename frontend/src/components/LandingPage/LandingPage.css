@@ -12,6 +12,7 @@ main#landing-page {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #C48636
 }
 
 footer#landing-page {

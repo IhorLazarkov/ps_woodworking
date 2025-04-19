@@ -1,9 +1,10 @@
 import { useCart } from "../../context/CartContext";
+import "./cartPage.css";
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart, addToCart } = useCart();
 
-  if (cart.length === 0) return <h2>Your cart is empty.</h2>;
+  if (cart.length === 0) return <h2 className="cart-title">We have so much wood to offer!</h2>;
 
   // Calculate full cart total
   const totalPrice = cart.reduce(
@@ -12,8 +13,8 @@ export default function CartPage() {
   );
 
   return (
-    <div>
-      <h2>Your Cart</h2>
+    <div className="cart-page">
+      <h2 className="items-in-cart">Your Cart</h2>
       <ul>
         {cart.map(product => (
           <li key={product.id} style={{ marginBottom: "16px" }}>

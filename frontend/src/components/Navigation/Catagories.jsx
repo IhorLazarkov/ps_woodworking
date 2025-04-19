@@ -42,6 +42,7 @@ function CategoriesModal() {
 
     return (
         <div className="categories-modal">
+
             <button className="dropdown-toggle" onClick={openModal}>
                 <FontAwesomeIcon icon={faBars} className="bars-icon" />
                 Categories
@@ -97,6 +98,14 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         gap: '15px'
+    },
+    NavLink: {
+        textDecoration: 'none',
+        color: 'black',
+        fontSize: '16px',
+        padding: '10px 15px',
+        borderRadius: '5px',
+        transition: 'background-color 0.3s ease',
     }
 };
 
