@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createProduct, updateProduct, fetchProductDetails } from '../../redux/products';
 import './ProductForm.css';
+import { useModal } from '../../context/Modal';
 
-function ProductForm({ onClose }) {
+function ProductForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -20,6 +21,7 @@ function ProductForm({ onClose }) {
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
   const [image4, setImage4] = useState('');
+  const { closeModal } = useModal()
 
 
   useEffect(() => {
@@ -88,10 +90,6 @@ function ProductForm({ onClose }) {
     }
   };
 
-  const handleCancel = () => {
-    onClose();
-  };
-
   return (
     <div className="modal-content">
       <h1 className='model-header'>{isEditMode ? 'Edit Product' : 'Add New Product'}</h1>
@@ -148,7 +146,7 @@ function ProductForm({ onClose }) {
 
         <div className="form-actions">
           <button type="submit">{isEditMode ? 'Update Product' : 'Add Product'}</button>
-          <button type="button" onClick={handleCancel}>Cancel</button>
+          <button type="button" onClick={closeModal}>Cancel</button>
         </div>
       </form>
     </div>

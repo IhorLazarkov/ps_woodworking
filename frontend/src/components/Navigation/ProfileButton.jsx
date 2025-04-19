@@ -32,8 +32,9 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    closeModal();
+    dispatch(thunkLogout()).then(() => {
+      closeModal();
+    });
   };
 
   return (
@@ -51,7 +52,7 @@ function ProfileButton() {
               styles={styles.productInteraction}
               itemText="Add Product"
               onItemClick={closeModal}
-              modalComponent={<ProductForm onClose={closeModal} />}
+              modalComponent={<ProductForm />}
             />
             <OpenModalMenuItem
               styles={styles.productInteraction}
