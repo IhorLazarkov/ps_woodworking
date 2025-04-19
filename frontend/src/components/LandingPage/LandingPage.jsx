@@ -33,11 +33,54 @@ function LandingPage() {
                 }
             </main>
             <footer id="landing-page">
-                <FooterCard />
+                <FooterCard title="Looking for a good deal?">
+                    <div>
+                        <p>
+                            Discover unbeatable deals,
+                            high-quality products, and fast,
+                            reliable service—all in one place.
+                            Whether you're shopping for essentials, gifts,
+                            or something special just for you, we've got you covered.
+                        </p>
+                        <ul>
+                            <li>✅ Huge Selection</li>
+                            <li>✅ Affordable Prices</li>
+                            <li>✅ Fast Shipping</li>
+                            <li>✅ Top-Notch Customer Support</li>
+                        </ul>
+                        <div>
+                            🛒 Shop Now and Experience the Difference!
+                        </div>
+                    </div>
+                </FooterCard>
                 <div className="delimeter"></div>
-                <FooterCard />
+                <FooterCard title="Shopping Made Effortless!">
+                    <div>
+                        <ul>
+                            <li>
+                                Found something you love? Just one click and it’s in your cart!
+                                No fuss, no hassle—adding products is as easy as browsing.
+                            </li>
+                            <li>✨ Tap ➡️ Add to Cart ➡️ Checkout—Done!</li>
+                            <li>Start filling your cart with your favorites today!</li>
+                        </ul>
+                    </div>
+                </FooterCard>
                 <div className="delimeter"></div>
-                <FooterCard />
+                <FooterCard title="Ready to checkout?">
+                    <div>
+                        <ul>
+                            <li>💳 Fast. Simple. Secure. Checkout in Seconds!
+                            No more complicated steps or endless forms.
+                            Our streamlined checkout gets you from cart to confirmation in a flash!
+                            </li>
+                            <li>🔒 Secure Payments</li>
+                            <li>🚀 Lightning-Fast Process</li>
+                            <li>📦 Instant Order Confirmation</li>
+                            <li>Click, Pay, and You're on Your Way! 🛍️</li>
+                        </ul>
+                    </div>
+                </FooterCard>
             </footer>
         </>
     )

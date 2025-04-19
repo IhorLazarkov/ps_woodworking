@@ -38,6 +38,19 @@ div.footer-card {
     margin-top: 1em;
     text-align: center;
 
+    & h3 {
+        font-size: 1.3em;
+    }
+
+    & ul {
+        list-style: none;
+        text-align: left;
+    }
+
+    & li{
+        margin-top: 10px;
+    }
+
     & section {
         font-size: 1.1em;
         padding: 0 20px;
