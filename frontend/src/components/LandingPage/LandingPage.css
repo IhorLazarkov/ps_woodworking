@@ -4,7 +4,8 @@ main#landing-page {
     height: 80%;
 
     display: flex;
-    justify-content: space-evenly;
+    gap: 1em;
+    /* justify-content: space-evenly; */
     flex-wrap: wrap;
 }
 
@@ -33,7 +34,6 @@ footer#landing-page {
 }
 
 div.footer-card {
-    border: 0px dashed red;
     width: 30%;
     margin-top: 1em;
     text-align: center;
