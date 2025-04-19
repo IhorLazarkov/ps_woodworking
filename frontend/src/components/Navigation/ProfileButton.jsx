@@ -5,6 +5,7 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import ProductForm from "../ProductForm/ProductFrom";
 
 
 
@@ -54,7 +55,7 @@ function ProfileButton() {
             <OpenModalMenuItem
               itemText="My Products"
               onItemClick={closeModal}
-              modalComponent={<SignupFormModal />}
+              modalComponent={<ProductForm />}
             />
             <li>
               <button onClick={logout}>Log Out</button>
