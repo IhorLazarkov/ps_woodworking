@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createProduct, updateProduct, fetchProductDetails } from '../../redux/products';
 import './ProductForm.css';
-import Loading from '../Loading';
-import ErrorMessage from '../ErrorMessage';
 
-function ProductForm() {
+function ProductForm({onClose}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
   const productDetails = useSelector(state => state.products.product);
-  const loading = useSelector(state => state.products.loading);
-  const error = useSelector(state => state.products.error);
   const [isEditMode, setIsEditMode] = useState(false);
   const [product_name, setProductName] = useState('');
   const [product_price, setProductPrice] = useState('');
@@ -24,7 +20,7 @@ function ProductForm() {
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
   const [image4, setImage4] = useState('');
-  const [image5, setImage5] = useState('');
+
 
   useEffect(() => {
     if (productId) {
@@ -48,7 +44,6 @@ function ProductForm() {
       setImage2('');
       setImage3('');
       setImage4('');
-      setImage5('');
     } else if (!isEditMode) {
       setProductName('');
       setProductPrice('');
@@ -60,7 +55,6 @@ function ProductForm() {
       setImage2('');
       setImage3('');
       setImage4('');
-      setImage5('');
     }
   }, [isEditMode, productDetails]);
 
@@ -77,16 +71,15 @@ function ProductForm() {
     if (image2) formData.append('image2', image2);
     if (image3) formData.append('image3', image3);
     if (image4) formData.append('image4', image4);
-    if (image5) formData.append('image5', image5);
 
     try {
       if (isEditMode && productId) {
         // For updating, you might need a different endpoint or way to handle images
         // This example assumes you can update product details. Image updates might be separate.
-        await dispatch(updateProduct(productId, Object.fromEntries(formData)));
+        dispatch(updateProduct(productId, Object.fromEntries(formData)));
         navigate(`/product/${productId}`);
       } else {
-        const newProduct = await dispatch(createProduct(formData));
+        const newProduct =  dispatch(createProduct(formData));
         navigate(`/product/${newProduct.id}`);
       }
     } catch (err) {
@@ -96,16 +89,8 @@ function ProductForm() {
   };
 
   const handleCancel = () => {
-    navigate('/products');
+    onClose();
   };
-
-  if (loading) {
-    return <Loading message={isEditMode ? "Loading Product Details..." : "Submitting Product..."} />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={`Error: ${error}`} />;
-  }
 
   return (
     <div className="product-form-container">
@@ -136,39 +121,34 @@ function ProductForm() {
         {/* Image Handling */}
         <h2>Product Images</h2>
         <div className="form-group">
-          <label htmlFor="previewImage">Preview Image URL:</label>
+          <label htmlFor="previewImage">Preview Image:</label>
           <input type="url" id="previewImage" value={previewImage} onChange={(e) => setPreviewImage(e.target.value)} required />
           {previewImage.trim() && <img src={previewImage} alt="Preview" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
-          <label htmlFor="image1">Image URL 1 (Optional):</label>
+          <label htmlFor="image1">Image 1 (Optional):</label>
           <input type="url" id="image1" value={image1} onChange={(e) => setImage1(e.target.value)} />
           {image1.trim() && <img src={image1} alt="Image 1" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
-          <label htmlFor="image2">Image URL 2 (Optional):</label>
+          <label htmlFor="image2">Image 2 (Optional):</label>
           <input type="url" id="image2" value={image2} onChange={(e) => setImage2(e.target.value)} />
           {image2.trim() && <img src={image2} alt="Image 2" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
-          <label htmlFor="image3">Image URL 3 (Optional):</label>
+          <label htmlFor="image3">Image 3 (Optional):</label>
           <input type="url" id="image3" value={image3} onChange={(e) => setImage3(e.target.value)} />
           {image3.trim() && <img src={image3} alt="Image 3" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
-          <label htmlFor="image4">Image URL 4 (Optional):</label>
+          <label htmlFor="image4">Image 4 (Optional):</label>
           <input type="url" id="image4" value={image4} onChange={(e) => setImage4(e.target.value)} />
           {image4.trim() && <img src={image4} alt="Image 4" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
-        </div>
-        <div className="form-group">
-          <label htmlFor="image5">Image URL 5 (Optional):</label>
-          <input type="url" id="image5" value={image5} onChange={(e) => setImage5(e.target.value)} />
-          {image5.trim() && <img src={image5} alt="Image 5" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
 
         <div className="form-actions">
           <button type="submit">{isEditMode ? 'Update Product' : 'Add Product'}</button>
-          <button type="button" onClick={handleCancel}>Cancel</button>
+          <button type="button" onClick={handleCancel}>Cancel</button> 
         </div>
       </form>
     </div>

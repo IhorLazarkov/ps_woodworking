@@ -57,10 +57,18 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
 //~ add new product
 export const createProduct = (productData) => async (dispatch) => {
+    const user = getState().session.user;
+
+    if (!user || !user.isSeller) {
+        throw new Error('Unauthorized: You must be a logged-in seller to create a product.')
+    }
+
+
     const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {})
         },
         body: JSON.stringify(productData),
     });
@@ -77,8 +85,18 @@ export const createProduct = (productData) => async (dispatch) => {
 
 //~ delete a product
 export const deleteProduct = (productId) => async (dispatch) => {
+    const user = getState().session.user;
+    const productDetails = getState().products.productDetails;
+
+    if (!user || !user.isSeller || productDetails.seller_id !== user.id) {
+        throw new Error('Unauthorized: You must be the owner to delete a product.')
+    }
+
     const response = await fetch(`/api/products/${productId}`, {
         method: 'DELETE',
+        headers: {
+            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
+        },
     });
 
     if (!response.ok) {
@@ -92,10 +110,18 @@ export const deleteProduct = (productId) => async (dispatch) => {
 
 //~ update an existing product (optional, but often needed)
 export const updateProduct = (productId, productData) => async (dispatch) => {
+    const user = getState().session.user;
+    const productDetails = getState().products.productDetails;
+
+    if (!user || !productDetails || productDetails.seller_id !== user.id) {
+        throw new Error('Unauthorized: You must be the owner to update this product.');
+      }
+
     const response = await fetch(`/api/products/${productId}`, {
         method: 'PUT', // Or PATCH, depending on your API
         headers: {
             'Content-Type': 'application/json',
+            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
         },
         body: JSON.stringify(productData),
     });

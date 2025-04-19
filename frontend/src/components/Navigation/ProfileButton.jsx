@@ -50,12 +50,12 @@ function ProfileButton() {
             <OpenModalMenuItem
               itemText="Add Product"
               onItemClick={closeModal}
-              modalComponent={<SignupFormModal />}
+              modalComponent={<ProductForm onClose={closeModal} />}
             />
             <OpenModalMenuItem
               itemText="My Products"
               onItemClick={closeModal}
-              modalComponent={<ProductForm />}
+              modalComponent={<SignupFormModal />}
             />
             <li>
               <button onClick={logout}>Log Out</button>
