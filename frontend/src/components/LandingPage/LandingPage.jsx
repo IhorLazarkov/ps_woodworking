@@ -56,11 +56,11 @@ function LandingPage() {
                 <div className="delimeter"></div>
                 <FooterCard title="Shopping Made Effortless!">
                     <div>
+                        <p>
+                            Found something you love? Just one click and it’s in your cart!
+                            No fuss, no hassle—adding products is as easy as browsing.
+                        </p>
                         <ul>
-                            <li>
-                                Found something you love? Just one click and it’s in your cart!
-                                No fuss, no hassle—adding products is as easy as browsing.
-                            </li>
                             <li>✨ Tap ➡️ Add to Cart ➡️ Checkout—Done!</li>
                             <li>Start filling your cart with your favorites today!</li>
                         </ul>
@@ -69,11 +69,11 @@ function LandingPage() {
                 <div className="delimeter"></div>
                 <FooterCard title="Ready to checkout?">
                     <div>
-                        <ul>
-                            <li>💳 Fast. Simple. Secure. Checkout in Seconds!
+                        <p>💳 Fast. Simple. Secure. Checkout in Seconds!
                             No more complicated steps or endless forms.
                             Our streamlined checkout gets you from cart to confirmation in a flash!
-                            </li>
+                        </p>
+                        <ul>
                             <li>🔒 Secure Payments</li>
                             <li>🚀 Lightning-Fast Process</li>
                             <li>📦 Instant Order Confirmation</li>

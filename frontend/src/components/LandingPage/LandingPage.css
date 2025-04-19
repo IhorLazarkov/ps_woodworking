@@ -37,9 +37,10 @@ div.footer-card {
     width: 30%;
     margin-top: 1em;
     text-align: center;
+    font-family: "Graphik Webfont", -apple-system, "Helvetica Neue", "Droid Sans", Arial, sans-serif;
 
     & h3 {
-        font-size: 1.3em;
+        font-size: 1.2em;
     }
 
     & ul {
@@ -52,7 +53,7 @@ div.footer-card {
     }
 
     & section {
-        font-size: 1.1em;
         padding: 0 20px;
+        text-align: justify;
     }
 }
