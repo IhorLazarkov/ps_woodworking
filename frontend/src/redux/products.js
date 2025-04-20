@@ -57,7 +57,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 }
 
 //~ add new product
-export const createProduct = (productData) => async (dispatch) => {
+export const createProduct = (productData) => async (dispatch, getState) => {
     const user = getState().session.user;
 
     if (!user || !user.isSeller) {
@@ -85,7 +85,7 @@ export const createProduct = (productData) => async (dispatch) => {
 };
 
 //~ delete a product
-export const deleteProduct = (productId) => async (dispatch) => {
+export const deleteProduct = (productId) => async (dispatch, getState) => {
     const user = getState().session.user;
     const productDetails = getState().products.productDetails;
 
@@ -110,7 +110,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
 };
 
 //~ update an existing product (optional, but often needed)
-export const updateProduct = (productId, productData) => async (dispatch) => {
+export const updateProduct = (productId, productData) => async (dispatch, getState) => {
     const user = getState().session.user;
     const productDetails = getState().products.productDetails;
 

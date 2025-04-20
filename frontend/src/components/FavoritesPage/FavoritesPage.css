@@ -1,0 +1,27 @@
+.favorites-page {
+    padding: 2rem;
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  
+  .favorite-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .favorite-item img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  .favorites-empty {
+    padding: 2rem;
+    text-align: center;
+    font-style: italic;
+  }
+  

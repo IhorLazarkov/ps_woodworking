@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useFavorites } from '../../context/FavoritesContext';
+import { FaHeart } from "react-icons/fa";
 import './ProductDetailsPage.css';
 
 export const ProductDetails = () => {
@@ -13,6 +15,7 @@ export const ProductDetails = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.productDetails);
   const { addToCart } = useCart();
+  const { toggleFavorite, isFavorited } = useFavorites();
 
   useEffect(() => {
     dispatch(fetchProductDetails(productId));
@@ -42,6 +45,13 @@ export const ProductDetails = () => {
             {product.avgRating || 'New'}
             {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
           </p>
+          <button
+            className="favorite-btn"
+            onClick={() => toggleFavorite(product)}
+          >
+            <FaHeart color={isFavorited(product.id) ? "red" : "lightgray"} />
+          </button>
+
           <div className="product-description">
             <p>{product.description}</p>
           </div>

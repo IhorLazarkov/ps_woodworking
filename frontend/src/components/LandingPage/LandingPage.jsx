@@ -39,8 +39,9 @@ function LandingPage() {
                             Discover unbeatable deals,
                             high-quality products, and fast,
                             reliable service—all in one place.
-                            Whether you're shopping for essentials, gifts,
-                            or something special just for you, we've got you covered.
+                            Whether you&rsquo;re shopping for essentials, gifts,
+                            or something special just for you, we&rsquo;ve got you covered.
+
                         </p>
                         <ul>
                             <li>✅ Huge Selection</li>
@@ -77,7 +78,7 @@ function LandingPage() {
                             <li>🔒 Secure Payments</li>
                             <li>🚀 Lightning-Fast Process</li>
                             <li>📦 Instant Order Confirmation</li>
-                            <li>Click, Pay, and You're on Your Way! 🛍️</li>
+                            <li>Click, Pay, and You&apos;re on Your Way! 🛍️</li>
                         </ul>
                     </div>
                 </FooterCard>

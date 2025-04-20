@@ -56,7 +56,7 @@ export default function CartPage() {
         </ol>
       </div>
 
-      {/* ✅ Grand total only */}
+      {/* Grand total only */}
       <div className="grand-total">
         <h3>Grand Total: ${totalPrice.toFixed(2)}</h3>
       </div>

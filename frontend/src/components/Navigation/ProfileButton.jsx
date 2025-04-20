@@ -1,4 +1,5 @@
 import { useState, } from "react";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
@@ -60,8 +61,15 @@ function ProfileButton() {
               onItemClick={closeModal}
               modalComponent={<SignupFormModal />}
             />
+            <li>
+              <NavLink to="/favorites" onClick={closeModal}>
+                Favorites ❤️
+              </NavLink>
+            </li>
             <li style={styles.li}>
-              <button style={styles.logout} onClick={logout}>Log Out</button>
+              <button style={styles.logout} onClick={logout}>
+                Log Out
+              </button>            
             </li>
           </ul>
         ) : (

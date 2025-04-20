@@ -8,6 +8,7 @@ import * as sessionActions from "./redux/session";
 import { CartProvider } from "./context/CartContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FavoritesProvider } from "./context/FavoritesContext";
 import "./index.css";
 
 const store = configureStore();
@@ -20,10 +21,12 @@ if (import.meta.env.MODE !== "production") {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <CartProvider>
-        <RouterProvider router={router} />
-        <ToastContainer position="bottom-left" autoClose={2000} />
-      </CartProvider>
+      <FavoritesProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+          <ToastContainer position="bottom-left" autoClose={2000} />
+        </CartProvider>
+      </FavoritesProvider>
     </ReduxProvider>
   </React.StrictMode>
 );
