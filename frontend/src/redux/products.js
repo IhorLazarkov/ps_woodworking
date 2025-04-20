@@ -106,18 +106,18 @@ export const createProduct = (productData) => async (dispatch) => {
 
 //~ delete a product
 export const deleteProduct = (productId) => async (dispatch) => {
-    const user = getState().session.user;
-    const productDetails = getState().products.productDetails;
+    // const user = getState().session.user;
+    // const productDetails = getState().products.productDetails;
 
-    if (!user || !user.isSeller || productDetails.seller_id !== user.id) {
-        throw new Error('Unauthorized: You must be the owner to delete a product.')
-    }
+    // if (!user || !user.isSeller || productDetails.seller_id !== user.id) {
+    //     throw new Error('Unauthorized: You must be the owner to delete a product.')
+    // }
 
     const response = await fetch(`/api/products/${productId}`, {
         method: 'DELETE',
-        headers: {
-            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
-        },
+        // headers: {
+        //     ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
+        // },
     });
 
     if (!response.ok) {
