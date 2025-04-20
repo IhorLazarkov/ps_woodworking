@@ -101,7 +101,7 @@ export const createProduct = (productData) => async (dispatch, getState) => {
 
     const data = await response.json();
     dispatch(addProduct(data)); // Assuming your API returns the newly created product
-    return response;
+    return data;
 };
 
 //~ delete a product

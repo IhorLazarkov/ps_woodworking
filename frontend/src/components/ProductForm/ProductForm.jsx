@@ -82,10 +82,12 @@ function ProductForm() {
         // This example assumes you can update product details. Image updates might be separate.
         dispatch(updateProduct(productId, product)).then((res) => {
           navigate(`/product/${res.id}`);
+          closeModal()
         });
       } else {
         dispatch(createProduct(product)).then((res) => {
           navigate(`/product/${res.id}`);
+          closeModal()
         });
       }
     } catch (err) {
