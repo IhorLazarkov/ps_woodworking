@@ -96,7 +96,7 @@ function ProductForm() {
     }
   };
 
-  const onCancelHalder = (e) => {
+  const onCancelHandler = () => {
     if (isEditMode && productId)
       navigate('/products/current')
     else
@@ -161,7 +161,7 @@ function ProductForm() {
 
         <div className="form-actions">
           <button type="submit">{isEditMode ? 'Update Product' : 'Add Product'}</button>
-          <button type="button" onClick={onCancelHalder}>Cancel</button>
+          <button type="button" onClick={onCancelHandler}>Cancel</button>
         </div>
       </form>
     </div>

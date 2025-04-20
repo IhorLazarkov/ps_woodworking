@@ -132,7 +132,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
 //~ update an existing product (optional, but often needed)
 export const updateProduct = (productId, productData) => async (dispatch, getState) => {
     const user = getState().session.user;
-    const productDetails = getState().products.products.filter(p => p.id === productId);;
+    const productDetails = getState().products.products.filter(p => p.id === productId);
 
     if (!user && !productDetails && productDetails.sellerId !== user.id) {
         throw new Error('Unauthorized: You must be the owner to update this product.');
@@ -169,9 +169,10 @@ const productsReducer = (state = initialState, action) => {
             return { ...state, products: action.payload };
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
-        case GET_PRODUCTS_CURRENT:
+        case GET_PRODUCTS_CURRENT: {
             const newProducts = action.payload;
             return { ...newProducts };
+        }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
         case REMOVE_PRODUCT:
