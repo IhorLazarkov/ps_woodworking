@@ -3,8 +3,12 @@ import OpenModalButton from "../OpenModalButton"
 import { useModal } from "../../context/Modal"
 import { useDispatch } from "react-redux"
 import { deleteProduct } from "../../redux/products"
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({ id, name, department, description, previewImage }) {
+    
+    const navigate = useNavigate()
+
     return (
         <div className="current_user_product_card">
             <img src={previewImage} alt="preview image" />
@@ -12,11 +16,7 @@ function ProductCard({ id, name, department, description, previewImage }) {
             <div>{department}</div>
             <div>{description}</div>
             <div className="button_container">
-                <OpenModalButton
-                    className="primary"
-                    buttonText="Update"
-                    modalComponent={<UpdateButton />}
-                />
+                <button className="primary" onClick={()=> navigate(`/products/edit/${id}`)}>Update</button>
                 <OpenModalButton
                     className="critical"
                     buttonText="Delete"
@@ -45,12 +45,6 @@ function DeleteConfirmation({id}){
                 <button className="primary" onClick={closeModal}>No</button>
             </div>
         </div>
-    )
-}
-
-function UpdateButton() {
-    return (
-        <div>Update</div>
     )
 }
 
