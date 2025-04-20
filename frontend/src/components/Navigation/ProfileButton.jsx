@@ -9,7 +9,6 @@ import SignupFormModal from "../SignupFormModal";
 import ProductForm from "../ProductForm/ProductForm";
 
 
-
 function Modal({ isOpen, onClose, children }) {
   if (!isOpen) return null;
 
@@ -55,12 +54,16 @@ function ProfileButton() {
               onItemClick={closeModal}
               modalComponent={<ProductForm />}
             />
-            <OpenModalMenuItem
-              styles={styles.productInteraction}
-              itemText="My Products"
-              onItemClick={closeModal}
-              modalComponent={<SignupFormModal />}
-            />
+            <li>
+              <NavLink
+                to="/products/current"
+                onClick={closeModal}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                My Products
+              </NavLink>
+            </li>
+
             <li>
               <NavLink to="/favorites" onClick={closeModal}>
                 Favorites ❤️
@@ -69,7 +72,7 @@ function ProfileButton() {
             <li style={styles.li}>
               <button style={styles.logout} onClick={logout}>
                 Log Out
-              </button>            
+              </button>
             </li>
           </ul>
         ) : (
