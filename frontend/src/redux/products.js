@@ -2,6 +2,7 @@ const SET_PRODUCTS = 'products/SET_PRODUCTS';
 const ADD_PRODUCT = 'products/ADD_PRODUCT';
 const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT';
 const SET_PRODUCT_DETAILS = 'products/SET_PRODUCT_DETAILS';
+const GET_PRODUCTS_CURRENT = 'products/GET_PRODUCTS_CURRENT';
 
 
 //! Action Creators
@@ -16,6 +17,12 @@ const setProductDetails = (product) => ({
     type: SET_PRODUCT_DETAILS,
     payload: product
 });
+
+//~ get products of a current user
+const getCurrentProducts = (products) => ({
+    type: GET_PRODUCTS_CURRENT,
+    payload: products
+})
 
 //~ add product
 const addProduct = (product) => ({
@@ -53,6 +60,19 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
     const data = await response.json()
     dispatch(setProductDetails(data));
+    return response;
+}
+
+//~ get current products
+export const getUserCurrentProducts = () => async (dispatch) => {
+    const response = await fetch('/api/sessions/products')
+    if(!response.ok){
+        const error = await response.json();
+        throw new Error(error.message || "Failed to fetch products")
+    }
+    
+    const data = await response.json();
+    dispatch(getCurrentProducts(data));
     return response;
 }
 
@@ -149,6 +169,9 @@ const productsReducer = (state = initialState, action) => {
             return { ...state, products: action.payload };
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
+        case GET_PRODUCTS_CURRENT:
+            const newProducts = action.payload
+            return { ...newProducts }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
         case REMOVE_PRODUCT:

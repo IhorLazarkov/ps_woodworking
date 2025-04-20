@@ -6,6 +6,7 @@ import ProductDetails from '../components/ProductDetailsPage';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage';
 import CartPage from "../components/CartPage";
+import MyProductsPage from '../components/MyProductsPage';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />
+      },
+      {
+        path:"products/current",
+        element: <MyProductsPage />
       }
       // {
       //   path: 'session',

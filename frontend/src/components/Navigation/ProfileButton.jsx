@@ -6,6 +6,7 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import ProductForm from "../ProductForm/ProductForm";
+import { NavLink } from "react-router-dom";
 
 
 
@@ -54,12 +55,9 @@ function ProfileButton() {
               onItemClick={closeModal}
               modalComponent={<ProductForm />}
             />
-            <OpenModalMenuItem
-              styles={styles.productInteraction}
-              itemText="My Products"
-              onItemClick={closeModal}
-              modalComponent={<SignupFormModal />}
-            />
+            <NavLink
+              style={{textDecoration:"none", color:"inherit"}}
+              to="products/current">My Products</NavLink>
             <li style={styles.li}>
               <button style={styles.logout} onClick={logout}>Log Out</button>
             </li>
