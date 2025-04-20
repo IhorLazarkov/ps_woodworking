@@ -54,7 +54,7 @@ function ProfileButton() {
               onItemClick={closeModal}
               modalComponent={<ProductForm />}
             />
-            <li>
+            <li style={{margin:"10px 0"}}>
               <NavLink
                 to="/products/current"
                 onClick={closeModal}
@@ -63,9 +63,21 @@ function ProfileButton() {
                 My Products
               </NavLink>
             </li>
+            <li style={{marginBottom:"10px"}}>
+              <NavLink
+                to="/reviews"
+                onClick={closeModal}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                My Reviews
+              </NavLink>
+            </li>
 
             <li>
-              <NavLink to="/favorites" onClick={closeModal}>
+              <NavLink
+                to="/favorites"
+                onClick={closeModal}
+                style={{ textDecoration: "none", color: "inherit" }}>
                 Favorites ❤️
               </NavLink>
             </li>
@@ -125,7 +137,7 @@ const styles = {
   menu: {
     listStyle: 'none',
     padding: 0,
-    margin: 10
+    margin: '10px'
   },
   productInteraction: {
     padding: '10px 0',

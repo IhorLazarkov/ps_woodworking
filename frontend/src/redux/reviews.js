@@ -1,4 +1,5 @@
 const SET_REVIEWS = 'reviews/SET_REVIEWS';
+const GET_CURRENT_REVIEWS = 'reviews/GET_CURRENT_REVIEWS';
 const ADD_REVIEW = 'reviews/ADD_REVIEW';
 const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 
@@ -7,6 +8,11 @@ const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
 const setReviews = (productId, reviews) => ({
     type: SET_REVIEWS,
     payload: {productId, reviews}
+})
+
+const getCurrentReviews = (reviews) => ({
+    type: GET_CURRENT_REVIEWS,
+    payload: reviews
 })
 
 const addReview = (productId, review) => ({
@@ -31,6 +37,18 @@ export const fetchProductReviews = (productId) => async (dispatch) => {
     const data = await response.json();
     dispatch(setReviews(productId, data.reviews));
     return data;
+}
+
+export const fetchCurrentReviews = () => async (dispatch) => {
+    const response =  await fetch('/api/sessions/reviews')
+    if(!response.ok){
+        const error = await response.json()
+        throw new Error(error.message || "Failed to get reviews")
+    }
+
+    const data = await response.json()
+    dispatch(getCurrentReviews(data))
+    return response
 }
 
 export const createProductReview = (productId, reviewData) => async (dispatch) => {
@@ -73,6 +91,9 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_REVIEWS:
             return { ...state, [action.payload.productId]: action.payload.reviews };
+        case GET_CURRENT_REVIEWS:
+            const currentReviews = action.payload
+            return { ...currentReviews}
         case ADD_REVIEW:
             return { ...state,
                 [action.payload.productId]: [
