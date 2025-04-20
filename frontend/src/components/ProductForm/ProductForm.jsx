@@ -101,7 +101,7 @@ function ProductForm() {
       closeModal()
   }
 
-  if (!productDetails) return null;
+  if (isEditMode && productId && !productDetails) return null;
 
   return (
     <div className="modal-content">
