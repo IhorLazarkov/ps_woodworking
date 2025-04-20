@@ -54,3 +54,20 @@ div#delete_confirmation{
     margin: 8px;
     border-radius: 5px;
 }
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  fill-opacity: 20%;
+}

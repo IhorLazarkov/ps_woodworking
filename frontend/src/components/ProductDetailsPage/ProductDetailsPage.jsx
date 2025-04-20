@@ -45,12 +45,6 @@ export const ProductDetails = () => {
             {product.avgRating || 'New'}
             {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
           </p>
-          <button
-            className="favorite-btn"
-            onClick={() => toggleFavorite(product)}
-          >
-            <FaHeart color={isFavorited(product.id) ? "red" : "lightgray"} />
-          </button>
 
           <div className="product-description">
             <p>{product.description}</p>
@@ -61,6 +55,12 @@ export const ProductDetails = () => {
               <p className="purchase-price">{`$${product.price}`}</p>
             </div>
             <div className='buttons'>
+          <button
+            className="favorite-btn"
+            onClick={() => toggleFavorite(product)}
+          >
+            <FaHeart color={isFavorited(product.id) ? "red" : "lightgray"} />
+          </button>
               <button
                 className="add-to-cart-btn"
                 onClick={() => {
