@@ -7,7 +7,7 @@ def checkImageExtention(form, field):
     Check that url finishs with image related extentions when not empty
     """
     print(f"Field value: {field.data}")
-    if field.data is None: return
+    if field.data == '' or field.data is None: return
 
     if not field.data.endswith('.jpg') \
         and not field.data.endswith('.jpeg') \
@@ -39,7 +39,7 @@ class ProductForm(FlaskForm):
     description = StringField('Description', 
         validators=[
             DataRequired("Product must have a description"),
-            Length(min=10, max=255, message="Description needs to be at least 50 characters")
+            Length(min=10, max=255, message="Description needs to be at least 10 characters")
             ])
     previewImage = StringField("Preview Image", 
             validators=[

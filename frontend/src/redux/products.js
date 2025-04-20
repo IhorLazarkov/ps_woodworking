@@ -80,12 +80,12 @@ export const getUserCurrentProducts = () => async (dispatch) => {
 export const createProduct = (productData) => async (dispatch, getState) => {
     const user = getState().session.user;
 
-    if (!user || !user.isSeller) {
+    if (!user || !user.seller) {
         throw new Error('Unauthorized: You must be a logged-in seller to create a product.')
     }
 
 
-    const response = await fetch('/api/products', {
+    const response = await fetch('/api/products/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -100,24 +100,24 @@ export const createProduct = (productData) => async (dispatch, getState) => {
     }
 
     const data = await response.json();
-    dispatch(addProduct(data.product)); // Assuming your API returns the newly created product
+    dispatch(addProduct(data)); // Assuming your API returns the newly created product
     return response;
 };
 
 //~ delete a product
-export const deleteProduct = (productId) => async (dispatch) => {
-    // const user = getState().session.user;
-    // const productDetails = getState().products.productDetails;
+export const deleteProduct = (productId) => async (dispatch, getState) => {
+    const user = getState().session.user;
+    const productDetails = getState().products.products.filter(p => p.id === productId);
 
-    // if (!user || !user.isSeller || productDetails.seller_id !== user.id) {
-    //     throw new Error('Unauthorized: You must be the owner to delete a product.')
-    // }
+    if (!user && !user.seller && parseInt(productDetails.sellerId) !== parseInt(user.id)) {
+        throw new Error('Unauthorized: You must be the owner to delete a product.')
+    }
 
     const response = await fetch(`/api/products/${productId}`, {
         method: 'DELETE',
-        // headers: {
-        //     ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
-        // },
+        headers: {
+            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
+        },
     });
 
     if (!response.ok) {
@@ -131,18 +131,18 @@ export const deleteProduct = (productId) => async (dispatch) => {
 
 //~ update an existing product (optional, but often needed)
 export const updateProduct = (productId, productData) => async (dispatch, getState) => {
-    // const user = getState().session.user;
-    // const productDetails = getState().products.productDetails;
+    const user = getState().session.user;
+    const productDetails = getState().products.products.filter(p => p.id === productId);;
 
-    // if (!user || !productDetails || productDetails.seller_id !== user.id) {
-    //     throw new Error('Unauthorized: You must be the owner to update this product.');
-    // }
+    if (!user && !productDetails && productDetails.sellerId !== user.id) {
+        throw new Error('Unauthorized: You must be the owner to update this product.');
+    }
 
     const response = await fetch(`/api/products/${productId}`, {
         method: 'PUT', // Or PATCH, depending on your API
         headers: {
             'Content-Type': 'application/json',
-            // ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
+            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
         },
         body: JSON.stringify(productData),
     });
@@ -169,10 +169,9 @@ const productsReducer = (state = initialState, action) => {
             return { ...state, products: action.payload };
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
-        case GET_PRODUCTS_CURRENT: {
+        case GET_PRODUCTS_CURRENT:
             const newProducts = action.payload;
             return { ...newProducts };
-        }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
         case REMOVE_PRODUCT:

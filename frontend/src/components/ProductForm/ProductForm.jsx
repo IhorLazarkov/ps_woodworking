@@ -84,7 +84,7 @@ function ProductForm() {
           navigate(`/product/${res.id}`);
         });
       } else {
-        dispatch(createProduct(formData)).then((res) => {
+        dispatch(createProduct(product)).then((res) => {
           navigate(`/product/${res.id}`);
         });
       }
