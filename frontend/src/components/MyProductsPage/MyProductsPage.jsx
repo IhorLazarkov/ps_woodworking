@@ -23,7 +23,7 @@ function MyProductsPage() {
             <main style={{ display: "flex", gap: "10px" }}>
                 {!isLoaded
                     ? <h3>Loading ...</h3>
-                    : <>
+                    : <> {products && products.length == 0 && <div>There are no products</div>}
                         {products && products.map(({
                             id,
                             name,
