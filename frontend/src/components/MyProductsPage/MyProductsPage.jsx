@@ -20,7 +20,7 @@ function MyProductsPage() {
     return (
         <>
             <h1>My products page</h1>
-            <main style={{display: "flex", gap:"10px"}}>
+            <main style={{ display: "flex", gap: "10px" }}>
                 {!isLoaded
                     ? <h3>Loading ...</h3>
                     : <>
@@ -32,6 +32,7 @@ function MyProductsPage() {
                             previewImage }) => {
                             return <div key={id}>
                                 <ProductCard
+                                    id={id}
                                     name={name}
                                     department={department}
                                     description={description}
