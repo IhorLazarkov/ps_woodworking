@@ -9,7 +9,7 @@ function ProductForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
-  const productDetails = useSelector(state => state.products.product);
+  const productDetails = useSelector(state => state.products.productDetails);
   const [isEditMode, setIsEditMode] = useState(false);
   const [product_name, setProductName] = useState('');
   const [product_price, setProductPrice] = useState('');
@@ -33,19 +33,19 @@ function ProductForm() {
 
   useEffect(() => {
     if (isEditMode && productDetails) {
-      setProductName(productDetails.product_name || '');
-      setProductPrice(productDetails.product_price || '');
+      setProductName(productDetails.name || '');
+      setProductPrice(productDetails.price || '');
       setDepartment(productDetails.department || '');
       setQuantity(productDetails.quantity || '');
       setDescription(productDetails.description || '');
       // You'll need to adjust how you fetch and populate existing images for editing
       // based on how your backend returns them.
       // For now, we'll leave these empty for the edit form.
-      setPreviewImage('');
-      setImage1('');
-      setImage2('');
-      setImage3('');
-      setImage4('');
+      setPreviewImage(productDetails.productImages[0].url || '');
+      setImage1(productDetails.productImages.length >= 1 && (productDetails.productImages[0].url || ''));
+      setImage2(productDetails.productImages.length >= 2 && (productDetails.productImages[1].url || ''));
+      setImage3(productDetails.productImages.length >= 3 && (productDetails.productImages[2].url || ''));
+      setImage4(productDetails.productImages.length == 4 && (productDetails.productImages[3].url || ''));
     } else if (!isEditMode) {
       setProductName('');
       setProductPrice('');
@@ -62,33 +62,46 @@ function ProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('product_name', product_name);
-    formData.append('product_price', product_price);
-    formData.append('department', department);
-    formData.append('quantity', quantity);
-    formData.append('description', description);
-    formData.append('previewImage', previewImage);
-    if (image1) formData.append('image1', image1);
-    if (image2) formData.append('image2', image2);
-    if (image3) formData.append('image3', image3);
-    if (image4) formData.append('image4', image4);
+
+    const product = {
+      product_name,
+      product_price,
+      description,
+      department,
+      quantity,
+      previewImage,
+      image1,
+      image2,
+      image3,
+      image4
+    }
 
     try {
       if (isEditMode && productId) {
         // For updating, you might need a different endpoint or way to handle images
         // This example assumes you can update product details. Image updates might be separate.
-        dispatch(updateProduct(productId, Object.fromEntries(formData)));
-        navigate(`/product/${productId}`);
+        dispatch(updateProduct(productId, product)).then((res) => {
+          navigate(`/product/${res.id}`);
+        });
       } else {
-        const newProduct = dispatch(createProduct(formData));
-        navigate(`/product/${newProduct.id}`);
+        dispatch(createProduct(formData)).then((res) => {
+          navigate(`/product/${res.id}`);
+        });
       }
     } catch (err) {
       console.error('Error creating/updating product:', err);
       // Handle error
     }
   };
+
+  const onCancelHalder = (e) => {
+    if (isEditMode && productId)
+      navigate('/products/current')
+    else
+      closeModal()
+  }
+
+  if (!productDetails) return null;
 
   return (
     <div className="modal-content">
@@ -121,32 +134,32 @@ function ProductForm() {
         <div className="form-group">
           <label htmlFor="previewImage">Preview Image:</label>
           <input type="url" id="previewImage" value={previewImage} onChange={(e) => setPreviewImage(e.target.value)} required />
-          {previewImage.trim() && <img src={previewImage} alt="Preview" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+          {previewImage && <img src={previewImage} alt="Preview" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
           <label htmlFor="image1">Image 1 (Optional):</label>
           <input type="url" id="image1" value={image1} onChange={(e) => setImage1(e.target.value)} />
-          {image1.trim() && <img src={image1} alt="Image 1" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+          {image1 && <img src={image1} alt="Image 1" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
           <label htmlFor="image2">Image 2 (Optional):</label>
           <input type="url" id="image2" value={image2} onChange={(e) => setImage2(e.target.value)} />
-          {image2.trim() && <img src={image2} alt="Image 2" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+          {image2 && <img src={image2} alt="Image 2" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
           <label htmlFor="image3">Image 3 (Optional):</label>
           <input type="url" id="image3" value={image3} onChange={(e) => setImage3(e.target.value)} />
-          {image3.trim() && <img src={image3} alt="Image 3" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+          {image3 && <img src={image3} alt="Image 3" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
         <div className="form-group">
           <label htmlFor="image4">Image 4 (Optional):</label>
           <input type="url" id="image4" value={image4} onChange={(e) => setImage4(e.target.value)} />
-          {image4.trim() && <img src={image4} alt="Image 4" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+          {image4 && <img src={image4} alt="Image 4" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
         </div>
 
         <div className="form-actions">
           <button type="submit">{isEditMode ? 'Update Product' : 'Add Product'}</button>
-          <button type="button" onClick={closeModal}>Cancel</button>
+          <button type="button" onClick={onCancelHalder}>Cancel</button>
         </div>
       </form>
     </div>

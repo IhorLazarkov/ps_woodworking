@@ -66,11 +66,11 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 //~ get current products
 export const getUserCurrentProducts = () => async (dispatch) => {
     const response = await fetch('/api/sessions/products')
-    if(!response.ok){
+    if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to fetch products")
     }
-    
+
     const data = await response.json();
     dispatch(getCurrentProducts(data));
     return response;
@@ -131,18 +131,18 @@ export const deleteProduct = (productId) => async (dispatch) => {
 
 //~ update an existing product (optional, but often needed)
 export const updateProduct = (productId, productData) => async (dispatch, getState) => {
-    const user = getState().session.user;
-    const productDetails = getState().products.productDetails;
+    // const user = getState().session.user;
+    // const productDetails = getState().products.productDetails;
 
-    if (!user || !productDetails || productDetails.seller_id !== user.id) {
-        throw new Error('Unauthorized: You must be the owner to update this product.');
-    }
+    // if (!user || !productDetails || productDetails.seller_id !== user.id) {
+    //     throw new Error('Unauthorized: You must be the owner to update this product.');
+    // }
 
     const response = await fetch(`/api/products/${productId}`, {
         method: 'PUT', // Or PATCH, depending on your API
         headers: {
             'Content-Type': 'application/json',
-            ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
+            // ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
         },
         body: JSON.stringify(productData),
     });
@@ -153,7 +153,7 @@ export const updateProduct = (productId, productData) => async (dispatch, getSta
     }
 
     const data = await response.json();
-    dispatch(setProductDetails(data.product)); // Assuming your API returns the updated product
+    dispatch(setProductDetails(data)); // Assuming your API returns the updated product
     return data;
 };
 
@@ -169,11 +169,10 @@ const productsReducer = (state = initialState, action) => {
             return { ...state, products: action.payload };
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
-            case GET_PRODUCTS_CURRENT: {
-                const newProducts = action.payload;
-                return { ...newProducts };
-            }
-            
+        case GET_PRODUCTS_CURRENT: {
+            const newProducts = action.payload;
+            return { ...newProducts };
+        }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
         case REMOVE_PRODUCT:
