@@ -1,7 +1,10 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCurrentReviews } from "../../redux/reviews"
+import { deleteProductReview, fetchCurrentReviews } from "../../redux/reviews"
 import './MyReviews.css'
+import OpenModalButton from "../OpenModalButton"
+import { useModal } from "../../context/Modal"
+import { useNavigate } from "react-router-dom"
 
 function MyReviewsPage() {
 
@@ -9,9 +12,7 @@ function MyReviewsPage() {
     const reviews = useSelector(state => state.reviews.reviews)
 
     useEffect(() => {
-        dispatch(fetchCurrentReviews()).then(() => {
-
-        })
+        dispatch(fetchCurrentReviews()).then(() => {})
     }, [dispatch])
 
     if (!reviews) return null;
@@ -20,8 +21,8 @@ function MyReviewsPage() {
         <>
             <h1>My Reviews</h1>
             <main id="reviews_container">
-                {reviews.map(({ created_at, rating, review, user }) => {
-                    return <div className="review_cart">
+                {reviews.map(({ id, created_at, rating, review, user }) => {
+                    return <div className="review_cart" key={id}>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <span>Rating: {rating}</span>
                             <span>Date: {created_at}</span>
@@ -32,12 +33,40 @@ function MyReviewsPage() {
                             justifyContent: "space-between",
                         }}>
                             <button className="primary">update</button>
-                            <button className="critical">delete</button>
+                            <OpenModalButton
+                                className="critical"
+                                buttonText="Delete"
+                                modalComponent={<DeleteConfirmation id={id} />}
+                            />
                         </div>
                     </div>
                 })}
             </main>
         </>
+    )
+}
+
+function DeleteConfirmation({ id }) {
+    const navigator = useNavigate()
+    const { closeModal } = useModal()
+    const dispatch = useDispatch()
+    const onYesHandler = (e) => {
+        dispatch(deleteProductReview(id)).then(() => {
+            navigator({ to: "/reviews" })
+            closeModal()
+        })
+    }
+    return (
+        <div style={{ margin: "10px" }}>
+            <h3>Delete Review?</h3>
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between"
+            }}>
+                <button className="critical" onClick={onYesHandler}>Yes</button>
+                <button className="primary" onClick={closeModal}>No</button>
+            </div>
+        </div>
     )
 }
 

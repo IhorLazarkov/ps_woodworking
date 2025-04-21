@@ -20,9 +20,9 @@ const addReview = (productId, review) => ({
     payload: {productId, review}
 })
 
-const removeReview = (productId, review) => ({
+const removeReview = (review) => ({
     type: REMOVE_REVIEW,
-    payload: {productId, review}
+    payload: review
 })
 
 
@@ -70,8 +70,8 @@ export const createProductReview = (productId, reviewData) => async (dispatch) =
     return data
 };
 
-export const deleteProductReview = (productId, reviewId) => async (dispatch) => {
-    const response = await fetch(`/api/products/${productId}/reviews/${reviewId}`, {
+export const deleteProductReview = (reviewId) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     });
 
@@ -80,7 +80,8 @@ export const deleteProductReview = (productId, reviewId) => async (dispatch) => 
         throw new Error(error.message || 'Failed to delete review')
     }
 
-    dispatch(removeReview(productId, reviewId));
+    const data = await response.json()
+    dispatch(removeReview(reviewId));
     return response
 }
 
@@ -102,12 +103,8 @@ const reviewsReducer = (state = initialState, action) => {
                 ],
             };
         case REMOVE_REVIEW:
-            return {
-                ...state,
-                [action.payload.productId]: (state[action.payload.productId] || []).filter(
-                    (review) => review.id !== action.payload.reviewId
-                ),
-            };
+            const reviews = [...state.reviews.filter(r => r.id != action.payload)]
+            return {reviews: [...reviews]};
         default:
             return state;
     }
