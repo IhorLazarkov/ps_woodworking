@@ -82,7 +82,7 @@ export const deleteProductReview = (reviewId) => async (dispatch) => {
 
     const data = await response.json()
     dispatch(removeReview(reviewId));
-    return response
+    return data
 }
 
 //!Reducer
@@ -92,9 +92,10 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_REVIEWS:
             return { ...state, [action.payload.productId]: action.payload.reviews };
-        case GET_CURRENT_REVIEWS:
+        case GET_CURRENT_REVIEWS: {
             const currentReviews = action.payload
             return { ...currentReviews}
+        }
         case ADD_REVIEW:
             return { ...state,
                 [action.payload.productId]: [
@@ -102,9 +103,10 @@ const reviewsReducer = (state = initialState, action) => {
                     action.payload.review,
                 ],
             };
-        case REMOVE_REVIEW:
-            const reviews = [...state.reviews.filter(r => r.id != action.payload)]
+        case REMOVE_REVIEW: {
+            const reviews = [...state.reviews.filter(r => r.id !== action.payload)]
             return {reviews: [...reviews]};
+        }
         default:
             return state;
     }

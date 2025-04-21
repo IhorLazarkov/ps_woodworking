@@ -23,6 +23,7 @@ function MyReviewsPage() {
             <main id="reviews_container">
                 {reviews.map(({ id, created_at, rating, review, user }) => {
                     return <div className="review_cart" key={id}>
+                        <div style={{ display: "none" }}>{user?.username}</div>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <span>Rating: {rating}</span>
                             <span>Date: {created_at}</span>
@@ -50,7 +51,7 @@ function DeleteConfirmation({ id }) {
     const navigator = useNavigate()
     const { closeModal } = useModal()
     const dispatch = useDispatch()
-    const onYesHandler = (e) => {
+    const onYesHandler = () => {
         dispatch(deleteProductReview(id)).then(() => {
             navigator({ to: "/reviews" })
             closeModal()
