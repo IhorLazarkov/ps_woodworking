@@ -5,6 +5,10 @@ import { RouterProvider } from "react-router-dom";
 import configureStore from "./redux/store";
 import { router } from "./router";
 import * as sessionActions from "./redux/session";
+import { CartProvider } from "./context/CartContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FavoritesProvider } from "./context/FavoritesContext";
 import "./index.css";
 
 const store = configureStore();
@@ -17,7 +21,12 @@ if (import.meta.env.MODE !== "production") {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <RouterProvider router={router} />
+      <FavoritesProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+          <ToastContainer position="bottom-left" autoClose={2000} />
+        </CartProvider>
+      </FavoritesProvider>
     </ReduxProvider>
   </React.StrictMode>
 );

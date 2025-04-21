@@ -1,0 +1,86 @@
+.login-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 90vh;
+  overflow-y: scroll;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.login-modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.email {
+  font-size: 24px;
+  width: 100%;
+  margin: 10px;
+}
+
+.email-input {
+  width: 97%;
+  height: 25px;
+  border-radius: 10px;
+}
+
+.password {
+  font-size: 24px;
+  width: 100%;
+  margin: 10px;
+}
+
+.password-input {
+  width: 97%;
+  height: 25px;
+  border-radius: 10px;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.log-in-button {
+  width: 45%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+}
+
+.log-in-demo-button {
+  width: 45%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #000000;
+  color: white;
+  font-size: 18px;
+}

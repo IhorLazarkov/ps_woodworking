@@ -28,32 +28,64 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+
+    const serverResponse = await dispatch(
+      thunkLogin({
+        email: "demo@aa.io",
+        password: "password",
+      })
+    );
+
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+  };
+
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
-      </form>
+      <div className="modal-content">
+        <div className="modal-header">
+          <h1>Log In</h1>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="modal-form">
+            <div className="input-fields">
+              <label className="email">
+                Email:
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="email-input"
+                />
+              </label>
+              {errors.email && <p>{errors.email}</p>}
+              <label className="password">
+                Password:
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="password-input"
+                />
+              </label>
+            </div>
+            {errors.password && <p>{errors.password}</p>}
+            <div className="login-buttons">
+              <button className="log-in-button" type="submit">Log In</button>
+              <button className="log-in-demo-button" type="button" onClick={handleDemoLogin}>
+                Demo Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </>
   );
 }
