@@ -115,7 +115,7 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_REVIEWS:
             return { ...state, [action.payload.productId]: action.payload.reviews };
-        case GET_CURRENT_REVIEWS: {
+        case GET_CURRENT_REVIEWS:
             const currentReviews = action.payload
             return { ...currentReviews }
         case UPDATE_REVIEW:
