@@ -47,6 +47,15 @@ button.critical {
     background-color: white;
     font-weight: 500;
 }
+button.nutral{
+    border-radius: 5px;
+    width: 7em;
+    height: 3em;
+    border-color: grey;
+    color: black;
+    background-color: white;
+    font-weight: 500;
+}
 
 div#delete_confirmation{
     box-sizing: border-box;
