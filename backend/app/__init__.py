@@ -11,6 +11,7 @@ from .api.product_routes import product_routes
 from .api.session_routes import session_routes
 from .api.review_routes import review_routes
 from .api.favorite_routes import favorite_routes
+from app.api.order_routes import order_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,12 +37,13 @@ app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(session_routes, url_prefix='/api/sessions')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
+app.register_blueprint(order_routes, url_prefix="/api/orders")
 db.init_app(app)
 migrate = Migrate(app, db)
 
 
 # Application Security
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
 # Since we are deploying with Docker and Flask,

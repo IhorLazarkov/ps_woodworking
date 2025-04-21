@@ -15,7 +15,7 @@ class Order(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     user = relationship("User", back_populates="orders")
-    order_items = relationship("Order_Item", back_populates="order_items")
+    order_items = relationship("Order_Item", back_populates="order", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -23,5 +23,6 @@ class Order(db.Model):
             "user_id": self.user_id,
             "order_date": self.created_at.isoformat(),
             "order_status": self.order_status,
+            "shipping_address": self.shipping_address,
             "created_at": self.created_at.isoformat() if self.created_at else None
         }

@@ -10,6 +10,7 @@ import FavoritesPage from '../components/FavoritesPage/FavoritesPage';
 import MyProductsPage from '../components/MyProductsPage';
 import ProductForm from '../components/ProductForm/ProductForm';
 import MyReviewsPage from '../components/MyReviewsPage/MyReviewsPage';
+import OrderConfirmation from "../components/OrderConfirmation/OrderConfirmation";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path:"reviews",
         element: <MyReviewsPage />
+      },
+      {
+        path:"orders/:orderId",
+        element: <OrderConfirmation />
       }
       // {
       //   path: 'session',
