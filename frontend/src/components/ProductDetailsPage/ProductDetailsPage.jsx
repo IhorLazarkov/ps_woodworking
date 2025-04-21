@@ -10,26 +10,31 @@ import { useFavorites } from '../../context/FavoritesContext';
 import { FaHeart } from "react-icons/fa";
 import './ProductDetailsPage.css';
 import { fetchProductReviews } from '../../redux/reviews';
+import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+
 
 export const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.productDetails);
-  const reviews = useSelector((state) => state.reviews)
+  const reviews = useSelector((state) => state.reviews);
+  const user = useSelector(state => state.session.user);
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorited } = useFavorites();
 
   useEffect(() => {
     dispatch(fetchProductDetails(productId)).then(() => {
       dispatch(fetchProductReviews(productId)).then(() => {
-        console.log("Roading of products details with reviews completed");
-      })
+      console.log("Roading of products details with reviews completed");
+    })
     });
   }, [dispatch, productId]);
 
   if (!product) return null;
-  if (!product.productImages) return null;
-  if (Object.values(reviews).length == 0 || !reviews[productId]) return null;
+  if (!product.productImages || product.productImages.length === 0) return null;
+  // if (Object.values(reviews).length == 0 || !reviews[productId]) return null;
+  if (!reviews[productId]) return null;
 
   return (
     <div className="all-product-details">
@@ -49,7 +54,7 @@ export const ProductDetails = () => {
 
           <p className="product-review">
             <FontAwesomeIcon icon={faStar} />{' '}
-            {product.avgRating || 'New'}
+            {product.avgRating ? Number(product.avgRating).toFixed(2) : "New"}
             {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
           </p>
 
@@ -87,8 +92,16 @@ export const ProductDetails = () => {
       <div className="line-break"></div>
 
       <h3>{product.avgRating > 0 ? "Reviews" : 'New'}</h3>
+
+      { user && !reviews[productId].some(r => r.user?.id === user.id) && (
+        <OpenModalButton
+          buttonText="Write a Review"
+          modalComponent={<CreateReviewModal productId={product.id} />}
+        />
+      )}
+      
       {
-        reviews && reviews[productId].map(({ id, created_at, rating, review, user }) => {
+        reviews[productId].map(({ id, created_at, rating, review, user }) => {
           return <div className="review-content" key={id}>
             <div className="review-heading">
               <p className="review-title">

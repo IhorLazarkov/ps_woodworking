@@ -15,7 +15,7 @@ function FavoritesPage() {
       <div className="favorites-grid">
         {favorites.map(product => (
           <div key={product.id} className="favorite-item">
-            <NavLink to={`/product/${product.id}`}>
+            <NavLink to={`/products/${product.id}`}>
               <img src={product.previewImage} alt={product.name} />
               <h3>{product.name}</h3>
             </NavLink>

@@ -25,7 +25,7 @@ function LandingPage() {
                     ? <h3>Loading ...</h3>
                     : <>
                         {products && products.map(p => {
-                            return <Link key={p.id} to={`product/${p.id}`}>
+                            return <Link key={p.id} to={`products/${p.id}`}>
                                 < ProductCard product={p} />
                             </Link>
                         })}

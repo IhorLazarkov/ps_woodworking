@@ -26,5 +26,6 @@ class Review(db.Model):
             "product_id": self.product_id,
             "rating": self.rating,
             "review": self.review,
-            "created_at": self.created_at.isoformat() if self.created_at else None
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "user": self.user.to_dict() if self.user else None
         }

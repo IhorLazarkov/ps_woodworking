@@ -22,9 +22,9 @@ function ProductCard({ product }) {
             <h3>{product.name}</h3>
 
           </div>
-          <FontAwesomeIcon icon={faStar} /> {product.avgRating || "New"}
+          <FontAwesomeIcon icon={faStar} />{" "} {product.avgRating ? Number(product.avgRating).toFixed(2) : "New"}
         </div>
-        <button 
+        <button
           className="favorite-button"
           onClick={(e) => {
             e.stopPropagation();

@@ -58,7 +58,7 @@ export const fetchCurrentReviews = () => async (dispatch) => {
 }
 
 export const createProductReview = (productId, reviewData) => async (dispatch) => {
-    const response = await fetch(`/api/prducts/${productId}/reviews`, {
+    const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ export const createProductReview = (productId, reviewData) => async (dispatch) =
     }
 
     const data = await response.json();
-    dispatch(addReview(productId, data.review));
+    dispatch(addReview(productId, data));
     return data
 };
 

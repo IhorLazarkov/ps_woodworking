@@ -81,12 +81,12 @@ function ProductForm() {
         // For updating, you might need a different endpoint or way to handle images
         // This example assumes you can update product details. Image updates might be separate.
         dispatch(updateProduct(productId, product)).then((res) => {
-          navigate(`/product/${res.id}`);
+          navigate(`/products/${res.id}`);
           closeModal()
         });
       } else {
         dispatch(createProduct(product)).then((res) => {
-          navigate(`/product/${res.id}`);
+          navigate(`/products/${res.id}`);
           closeModal()
         });
       }
