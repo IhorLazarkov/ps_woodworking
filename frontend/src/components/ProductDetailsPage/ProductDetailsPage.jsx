@@ -29,7 +29,7 @@ export const ProductDetails = () => {
 
   if (!product) return null;
   if (!product.productImages) return null;
-  if (!reviews) return null;
+  if (Object.values(reviews).length == 0 || !reviews[productId]) return null;
 
   return (
     <div className="all-product-details">
@@ -88,8 +88,8 @@ export const ProductDetails = () => {
 
       <h3>{product.avgRating > 0 ? "Reviews" : 'New'}</h3>
       {
-        reviews && reviews[product.id].map(({ created_at, rating, review, user }) => {
-          return <div className="review-content">
+        reviews && reviews[productId].map(({ id, created_at, rating, review, user }) => {
+          return <div className="review-content" key={id}>
             <div className="review-heading">
               <p className="review-title">
                 {user.firstName} commented on {created_at} <FontAwesomeIcon icon={faStar} />{rating}
