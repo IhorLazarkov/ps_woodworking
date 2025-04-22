@@ -72,7 +72,7 @@ export const getUserCurrentProducts = () => async (dispatch) => {
     }
 
     const data = await response.json();
-    dispatch(getCurrentProducts(data));
+    dispatch(getCurrentProducts(data.products));
     return response;
 }
 
@@ -170,8 +170,10 @@ const productsReducer = (state = initialState, action) => {
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
         case GET_PRODUCTS_CURRENT: {
-            const newProducts = action.payload;
-            return { ...newProducts };
+            const newProducts = {};
+            newProducts.products = [...action.payload]
+            newProducts.productDetails = { ...state.productDetails }
+            return {...newProducts};
         }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };

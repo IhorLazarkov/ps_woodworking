@@ -173,7 +173,7 @@ def get_product_reviews(id):
             review = review.to_dict()
             review["user"] = {
                 "id":user.id,
-                "firstName":user.first_name
+                "first_name":user.first_name
             }
             result.append(review)
             
@@ -216,7 +216,10 @@ def add_review(id):
         
         db.session.add(review)
         db.session.commit()
+
+        result = review.to_dict()
+        result["user"] = {"firt_name":current_user.first_name, "id": current_user.id}
         
-        return review.to_dict(), 201
+        return result, 201
 
     return {"errors": form.errors}, 400

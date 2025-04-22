@@ -12,6 +12,10 @@ export default function CartPage() {
     0
   );
 
+  const onCheckoutHandler = () => {
+    
+  }
+
   return (
     <div className="cart-page">
       <div className="title-box">
@@ -63,7 +67,7 @@ export default function CartPage() {
       <div className="clear-checkout-buttons">
 
         <button className="clear-cart" onClick={clearCart}>Clear Cart</button>
-        <button className="checkout" onClick={() => alert("Coming Soon!")}>Checkout</button>
+        <button className="checkout" onClick={onCheckoutHandler}>Checkout</button>
       </div>
     </div>
   );

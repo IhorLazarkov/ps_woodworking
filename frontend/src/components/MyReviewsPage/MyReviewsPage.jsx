@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 function MyReviewsPage() {
 
     const dispatch = useDispatch()
-    const reviews = useSelector(state => state.reviews.reviews)
+    const reviews = useSelector(state => state.reviews)
 
     useEffect(() => {
         dispatch(fetchCurrentReviews()).then(() => { })
@@ -21,9 +21,9 @@ function MyReviewsPage() {
         <>
             <h1>My Reviews</h1>
             <main id="reviews_container">
-                {reviews.map(({ id, created_at, rating, review}) => {
+                {reviews.map(({ id, created_at, rating, review, user}) => {
                     return <div className="review_cart" key={id}>
-                        <div style={{ display: "none" }}>{user?.username}</div>
+                        <div style={{ display: "none" }}>{user.username}</div>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <span>Rating: {rating}</span>
                             <span>Date: {created_at}</span>
