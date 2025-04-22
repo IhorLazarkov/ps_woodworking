@@ -11,10 +11,10 @@ export default defineConfig((mode) => ({
       failOnError: mode === "production",
     }),
   ],
-  server: {
-    open: true,
-    proxy: {
-      "/api": "http://127.0.0.1:8000",
-    },
-  },
+  // server: {
+  //   open: true,
+  //   proxy: {
+  //     "/api": "http://127.0.0.1:8000",
+  //   },
+  // },
 }));
