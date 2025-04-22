@@ -23,8 +23,14 @@ export function FavoritesProvider({ children }) {
 
   const isFavorited = (productId) => favorites.some((item) => item.id === productId);
 
+  // New: clear all favorites (used on logout)
+  const clearFavorites = () => {
+    setFavorites([]);
+    localStorage.removeItem("favorites"); // 🧼 also clear persistent storage
+  };
+
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorited }}>
+    <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorited, clearFavorites }}>
       {children}
     </FavoritesContext.Provider>
   );

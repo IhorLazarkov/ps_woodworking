@@ -45,7 +45,11 @@ export function CartProvider({ children }) {
   };
 
   // Clear cart function
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
+  };
+  
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
