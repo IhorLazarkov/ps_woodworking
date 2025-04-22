@@ -99,6 +99,8 @@ def update_product(id):
     """
     if not current_user.is_authenticated:
         return { 'errors': { "message": "Unauthorized"} }, 401
+    
+    print("🛠 Incoming PUT data:", request.get_json()) 
 
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -121,7 +123,7 @@ def update_product(id):
 
         if product.seller_id != current_user.id:
             return { "errors": { "message":"Unathorized to update"}}, 401
-        
+    print("❌ Update form validation errors:", form.errors)   
     return {"errors": form.errors }, 500
 
 @product_routes.route("/<int:id>")

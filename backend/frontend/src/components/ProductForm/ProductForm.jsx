@@ -78,16 +78,20 @@ function ProductForm() {
       image4
     }
 
+    console.log("🛠 Submitting product update:", product); 
+
     try {
       if (isEditMode && productId) {
         // For updating, you might need a different endpoint or way to handle images
         // This example assumes you can update product details. Image updates might be separate.
         dispatch(updateProduct(productId, product)).then((res) => {
+          console.log("✅ Update response:", res); 
           navigate(`/products/${res.id}`);
           closeModal()
         });
       } else {
         dispatch(createProduct(product)).then((res) => {
+          console.log("✅ Creation response:", res);
           navigate(`/products/${res.id}`);
           closeModal()
         });
