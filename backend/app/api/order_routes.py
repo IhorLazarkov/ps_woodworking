@@ -42,7 +42,6 @@ def create_order():
     }), 201
 
 @order_routes.route("/<int:order_id>")
-@cross_origin(origins=["http://localhost:5173"], supports_credentials=True)
 @login_required
 def get_order(order_id):
     order = Order.query.get(order_id)

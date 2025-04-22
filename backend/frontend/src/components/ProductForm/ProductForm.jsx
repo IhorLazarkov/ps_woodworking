@@ -116,7 +116,7 @@ function ProductForm() {
         </div>
         <div className="form-group">
           <label htmlFor="product_price">Price:</label>
-          <input type="number" id="product_price" value={product_price} onChange={(e) => setProductPrice(e.target.value)} required />
+          <input type="number" id="product_price" value={product_price} onChange={(e) => setProductPrice(parseFloat(e.target.value))} required />
         </div>
         <div className="form-group">
           <label htmlFor="department">Department:</label>
@@ -124,11 +124,11 @@ function ProductForm() {
         </div>
         <div className="form-group">
           <label htmlFor="quantity">Quantity:</label>
-          <input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+          <input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} required />
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
-          <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} required />
         </div>
 
         {/* Image Handling */}
