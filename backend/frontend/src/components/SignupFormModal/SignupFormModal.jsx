@@ -28,8 +28,8 @@ function SignupFormModal() {
       thunkSignup({
         email,
         username,
-        firstName,
         password,
+        first_name: firstName,
       })
     );
 
@@ -78,7 +78,7 @@ function SignupFormModal() {
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
-            {errors.first_name && <p className="error">{errors.first_name}</p>}
+            {errors.first_name && <p>{errors.first_name[0]}</p>}
 
 
             <label className="password">
