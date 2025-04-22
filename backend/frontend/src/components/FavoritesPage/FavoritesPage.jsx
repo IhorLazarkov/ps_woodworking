@@ -16,7 +16,13 @@ function FavoritesPage() {
         {favorites.map(product => (
           <div key={product.id} className="favorite-item">
             <NavLink to={`/products/${product.id}`}>
-              <img src={product.previewImage} alt={product.name} />
+              <img src={
+                product.previewImage ||
+                product.productImages?.find(img => img.preview)?.url ||
+                ""
+              } 
+              alt={product.name} 
+            />
               <h3>{product.name}</h3>
             </NavLink>
             <p>${product.price}</p>
