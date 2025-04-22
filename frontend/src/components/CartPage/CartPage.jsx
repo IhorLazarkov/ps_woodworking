@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import "./cartPage.css";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart, addToCart } = useCart();
-  const navigator = useNavigate()
   const [error, setError] = useState({})
 
   if (cart.length === 0) return <h2 className="cart-title">We have so much wood to offer!</h2>;
@@ -41,8 +41,9 @@ export default function CartPage() {
         const err = await res.json()
         setError(err)
       } else {
+        const result = await res.json()
         clearCart()
-        navigator({ to: "/" })
+        toast.success(result.message)
       }
     }
     createOrder()
