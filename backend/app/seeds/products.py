@@ -50,6 +50,11 @@ def undo_products():
         db.session.execute(text("DELETE FROM images"))
         db.session.execute(text("DELETE FROM products"))
 
+         # Reset ID counters for Postgres
+        db.session.execute(text("ALTER SEQUENCE order_items_id_seq RESTART WITH 1"))
+        db.session.execute(text("ALTER SEQUENCE images_id_seq RESTART WITH 1"))
+        db.session.execute(text("ALTER SEQUENCE products_id_seq RESTART WITH 1"))
+
     db.session.commit()
 
 

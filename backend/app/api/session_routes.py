@@ -12,25 +12,37 @@ def get_current_user_products():
     Get all products of current user
     """
     response = []
-    products = db.session.query(Product).filter_by(seller_id = current_user.id).all()
+    products = db.session.query(Product).filter_by(seller_id=current_user.id).all()
 
     for product in products:
-        if product is not None:
-            result = product.to_dict()
-            stats = db.session.query(
-                Review,
-                func.count(Review.id).label("numOfReviews"),
-                func.sum(Review.rating).label("totalRating")
-            ).filter_by(product_id = product.id).first()
-            if stats["numOfReviews"] == 0:
-                result["avgRating"] = 0
-            else: 
-                result["avgRating"] = stats["totalRating"] / stats["numOfReviews"]
-            previewImage = Image.query.filter(Image.product_id == product.id and Image.preview == True).first()
-            result["previewImage"] = previewImage.url
-            response.append(result)
+        if product is None:
+            continue
+
+        result = product.to_dict()
+
+        # Safely calculate rating stats
+        rating_stats = db.session.query(
+            func.count(Review.id).label("numOfReviews"),
+            func.coalesce(func.sum(Review.rating), 0).label("totalRating")
+        ).filter(Review.product_id == product.id).first()
+
+        if rating_stats.numOfReviews == 0:
+            result["avgRating"] = 0
+        else:
+            result["avgRating"] = rating_stats.totalRating / rating_stats.numOfReviews
+
+        # Get preview image safely
+        preview_image = (
+            db.session.query(Image)
+            .filter(Image.product_id == product.id, Image.preview == True)
+            .first()
+        )
+        result["previewImage"] = preview_image.url if preview_image else ""
+
+        response.append(result)
 
     return {"products": response}, 200
+
 
 @session_routes.route("/reviews")
 @login_required

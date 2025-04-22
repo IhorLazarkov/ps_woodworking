@@ -42,31 +42,31 @@ def create_product():
     if not current_user.is_authenticated:
         return { 'errors': { "message": "Unauthorized" } }, 401
     
-    data = request.get_json()
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        product = Product(
+            seller_id = current_user.id,
+            product_name = form.data["product_name"],
+            product_price = form.data["product_price"],
+            department = form.data["department"],
+            quantity = form.data["quantity"],
+            description = form.data["description"]
+            )
+        images = []
+        images.append(Image(product = product, url = form.data["previewImage"], preview=True))
+        if form.data["image1"] is not None: images.append(Image(product = product, url = form.data["image1"]))
+        if form.data["image2"] is not None: images.append(Image(product = product, url = form.data["image2"]))
+        if form.data["image3"] is not None: images.append(Image(product = product, url = form.data["image3"]))
+        if form.data["image4"] is not None: images.append(Image(product = product, url = form.data["image4"]))
+        if form.data["image5"] is not None: images.append(Image(product = product, url = form.data["image5"]))
+        db.session.add(product)
+        db.session.add_all(images)
+        db.session.commit()
+        
+        return product.to_dict(), 201
 
-    product = Product(
-        seller_id = current_user.id,
-        product_name = data["product_name"],
-        product_price = data["product_price"],
-        department = data["department"],
-        quantity = data["quantity"],
-        description = data["description"]
-    )
-
-    images = []
-    images.append(Image(product = product, url = data["previewImage"], preview=True))
-    if data.get("image1"): images.append(Image(product = product, url = data["image1"]))
-    if data.get("image2"): images.append(Image(product = product, url = data["image2"]))
-    if data.get("image3"): images.append(Image(product = product, url = data["image3"]))
-    if data.get("image4"): images.append(Image(product = product, url = data["image4"]))
-    if data.get("image5"): images.append(Image(product = product, url = data["image5"]))
-
-    db.session.add(product)
-    db.session.add_all(images)
-    db.session.commit()
-
-    return product.to_dict(), 201
-
+    return {"message":form.errors}, 400
 
 @product_routes.route("/<int:id>", methods=["DELETE"])
 @login_required

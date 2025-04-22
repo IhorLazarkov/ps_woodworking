@@ -79,8 +79,6 @@ function SignupFormModal() {
               required
             />
             {errors.first_name && <p>{errors.first_name[0]}</p>}
-
-
             <label className="password">
               Password:
               <input

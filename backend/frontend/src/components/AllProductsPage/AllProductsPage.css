@@ -1,1 +1,6 @@
-
+.product-card-link {
+    display: inline-block;
+    width: fit-content;
+    text-decoration: none;
+    color: inherit;
+  }

@@ -7,6 +7,9 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import ProductForm from "../ProductForm/ProductForm";
+import { useFavorites } from "../../context/FavoritesContext";
+import { useCart } from "../../context/CartContext";
+
 
 
 function Modal({ isOpen, onClose, children }) {
@@ -25,6 +28,8 @@ function Modal({ isOpen, onClose, children }) {
 function ProfileButton() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.session.user);
+  const { clearFavorites } = useFavorites();
+  const { clearCart } = useCart();
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => setShowModal(!showModal);
@@ -33,6 +38,8 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout()).then(() => {
+      clearFavorites();
+      clearCart();
       closeModal();
     });
   };
