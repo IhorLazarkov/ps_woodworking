@@ -78,7 +78,7 @@ function SignupFormModal() {
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
-            {errors.first_name && <p className="error">{errors.first_name[0]}</p>}
+            {errors.first_name && <p className="error">{errors.first_name}</p>}
 
 
             <label className="password">
