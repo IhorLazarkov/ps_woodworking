@@ -82,7 +82,7 @@ export const ProductDetails = () => {
           <div className="product-description">
             <p>{product.description}</p>
           </div>
-
+          <span >{`Available Quantity: ${product.quantity}`}</span>
           <div className="purchase-product-div">
             <div className="price-review-title">
               <p className="purchase-price">{`$${product.price}`}</p>
@@ -104,7 +104,7 @@ export const ProductDetails = () => {
                 Add to Cart
               </button>
 
-              <button className="purchase-btn">Purchase</button>
+              {/* <button className="purchase-btn">Purchase</button> */}
             </div>
           </div>
         </div>
