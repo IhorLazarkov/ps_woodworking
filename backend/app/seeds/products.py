@@ -40,10 +40,6 @@ def seed_products():
     db.session.add_all(images3)
     db.session.commit()
 
-
-
-from sqlalchemy.sql import text
-
 def undo_products():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.order_items RESTART IDENTITY CASCADE;")
