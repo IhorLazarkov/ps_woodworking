@@ -41,11 +41,13 @@ function ProductForm() {
       // You'll need to adjust how you fetch and populate existing images for editing
       // based on how your backend returns them.
       // For now, we'll leave these empty for the edit form.
-      setPreviewImage(productDetails.productImages[0].url || '');
-      setImage1(productDetails.productImages.length >= 1 && (productDetails.productImages[0].url || ''));
-      setImage2(productDetails.productImages.length >= 2 && (productDetails.productImages[1].url || ''));
-      setImage3(productDetails.productImages.length >= 3 && (productDetails.productImages[2].url || ''));
-      setImage4(productDetails.productImages.length == 4 && (productDetails.productImages[3].url || ''));
+      const images = productDetails.productImages || [];
+
+      setPreviewImage(images.length > 0 ? images[0].url : '');
+      setImage1(images.length >= 1 ? images[0].url : '');
+      setImage2(images.length >= 2 ? images[1].url : '');
+      setImage3(images.length >= 3 ? images[2].url : '');
+      setImage4(images.length >= 4 ? images[3].url : '');
     } else if (!isEditMode) {
       setProductName('');
       setProductPrice('');
