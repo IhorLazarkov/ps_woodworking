@@ -8,6 +8,7 @@ function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -27,6 +28,7 @@ function SignupFormModal() {
       thunkSignup({
         email,
         username,
+        firstName,
         password,
       })
     );
@@ -69,6 +71,16 @@ function SignupFormModal() {
               />
             </label>
             {errors.username && <p>{errors.username}</p>}
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+            {errors.first_name && <p className="error">{errors.first_name[0]}</p>}
+
+
             <label className="password">
               Password:
               <input
