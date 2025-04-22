@@ -78,14 +78,14 @@ function ProductForm() {
       image4
     }
 
-    console.log("🛠 Submitting product update:", product); 
+    console.log("🛠 Submitting product update:", product);
 
     try {
       if (isEditMode && productId) {
         // For updating, you might need a different endpoint or way to handle images
         // This example assumes you can update product details. Image updates might be separate.
         dispatch(updateProduct(productId, product)).then((res) => {
-          console.log("✅ Update response:", res); 
+          console.log("✅ Update response:", res);
           navigate(`/products/${res.id}`);
           closeModal()
         });
@@ -126,8 +126,14 @@ function ProductForm() {
         </div>
         <div className="form-group">
           <label htmlFor="department">Department:</label>
-          <input type="text" id="department" value={department} onChange={(e) => setDepartment(e.target.value)} />
+          <select id="department" value={department} onChange={(e) => setDepartment(e.target.value)} required>
+            <option value="">-- Select a Department --</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Decorations">Decorations</option>
+            <option value="Fun & Games">Fun & Games</option>
+          </select>
         </div>
+
         <div className="form-group">
           <label htmlFor="quantity">Quantity:</label>
           <input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} required />
