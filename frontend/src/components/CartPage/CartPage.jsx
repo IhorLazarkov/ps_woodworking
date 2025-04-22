@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import "./cartPage.css";
+import { useState } from "react";
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart, addToCart } = useCart();
+  const navigator = useNavigate()
+  const [error, setError] = useState({})
 
   if (cart.length === 0) return <h2 className="cart-title">We have so much wood to offer!</h2>;
 
@@ -13,7 +17,35 @@ export default function CartPage() {
   );
 
   const onCheckoutHandler = () => {
-    
+    const createOrder = async () => {
+      const order = []
+      cart.forEach(item => {
+        console.log(({ item }));
+        const product = {
+          product_id: item.id,
+          price: item.price,
+          quantity: item.quantity
+        }
+        order.push(product)
+      })
+      console.log({ order });
+
+      const res = await fetch('/api/orders/',
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(order)
+        })
+
+      if (!res.ok) {
+        const err = await res.json()
+        setError(err)
+      } else {
+        clearCart()
+        navigator({ to: "/" })
+      }
+    }
+    createOrder()
   }
 
   return (
@@ -69,6 +101,10 @@ export default function CartPage() {
         <button className="clear-cart" onClick={clearCart}>Clear Cart</button>
         <button className="checkout" onClick={onCheckoutHandler}>Checkout</button>
       </div>
+      {Object.values(error).length > 0 && <div 
+        style={{margin:"20px",color:"red", border:"1px solid red", height: "20px", padding:"10px"}}>
+          Error: {error.message}
+        </div>}
     </div>
   );
 }
