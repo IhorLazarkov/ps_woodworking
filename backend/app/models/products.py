@@ -41,8 +41,10 @@ class Product(db.Model):
         back_populates="favorite_products"
     )
     
-    def to_dict(self):
-        return {
+    def to_dict(self, include_image=True):
+        from flask_login import current_user  # ensure this works in all routes
+
+        data = {
             "id": self.id,
             "sellerId": self.seller_id,
             "name": self.product_name,
@@ -51,6 +53,13 @@ class Product(db.Model):
             "quantity": self.quantity,
             "description": self.description,
             "created_at": self.created_at.isoformat() if self.created_at else None,
-            "favorite_count": len(self.favorited_by),  # Optional: include favorite count
+            "favorite_count": len(self.favorited_by),
             "is_favorited": current_user.is_authenticated and current_user in self.favorited_by
         }
+
+        if include_image:
+            preview = next((img.url for img in self.images if img.preview), None)
+            data["previewImage"] = preview
+
+        return data
+
