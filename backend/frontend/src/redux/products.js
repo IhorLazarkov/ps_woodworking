@@ -95,9 +95,17 @@ export const createProduct = (productData) => async (dispatch, getState) => {
     });
 
     if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create product');
+        let errorMsg = 'Failed to create product';
+        try {
+            const error = await response.json();
+            errorMsg = error.message || JSON.stringify(error);
+        } catch (err) {
+            const text = await response.text();
+            console.error('Non-JSON error response:', text);
+        }
+        throw new Error(errorMsg);
     }
+    
 
     const data = await response.json();
     dispatch(addProduct(data)); // Assuming your API returns the newly created product
