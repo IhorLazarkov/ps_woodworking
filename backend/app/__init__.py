@@ -11,12 +11,12 @@ from .api.product_routes import product_routes
 from .api.session_routes import session_routes
 from .api.review_routes import review_routes
 from .api.favorite_routes import favorite_routes
-from app.api.order_routes import order_routes
+
+from .api.orders_route import orders_routes
 from .seeds import seed_commands
 from .config import Config
 
-# app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
-app = Flask(__name__, static_folder='../frontend/dist', static_url_path='')
+app = Flask(__name__, static_folder='../../frontend/dist', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -38,7 +38,7 @@ app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(session_routes, url_prefix='/api/sessions')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
-app.register_blueprint(order_routes, url_prefix="/api/orders")
+app.register_blueprint(orders_routes, url_prefix='/api/orders')
 db.init_app(app)
 migrate = Migrate(app, db)
 

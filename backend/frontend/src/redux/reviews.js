@@ -6,9 +6,9 @@ const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 
 
 //! Action creators
-const setReviews = (productId, reviews) => ({
+const setReviews = (reviews) => ({
     type: SET_REVIEWS,
-    payload: { productId, reviews }
+    payload: reviews
 })
 
 const getCurrentReviews = (reviews) => ({
@@ -16,9 +16,9 @@ const getCurrentReviews = (reviews) => ({
     payload: reviews
 })
 
-const addReview = (productId, review) => ({
+const addReview = (review) => ({
     type: ADD_REVIEW,
-    payload: { productId, review }
+    payload: review
 })
 
 const removeReview = (review) => ({
@@ -41,7 +41,7 @@ export const fetchProductReviews = (productId) => async (dispatch) => {
     }
 
     const data = await response.json();
-    dispatch(setReviews(productId, data.reviews));
+    dispatch(setReviews(data.reviews));
     return data;
 }
 
@@ -53,17 +53,19 @@ export const fetchCurrentReviews = () => async (dispatch) => {
     }
 
     const data = await response.json()
-    dispatch(getCurrentReviews(data))
+    dispatch(getCurrentReviews(data.reviews))
     return response
 }
 
+<<<<<<< HEAD:backend/frontend/src/redux/reviews.js
 export const createProductReview = (productId, reviewData) => async (dispatch) => {
+=======
+export const createProductReview = (productId, review) => async (dispatch) => {
+>>>>>>> reviews:frontend/src/redux/reviews.js
     const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reviewData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review),
     });
 
     if (!response.ok) {
@@ -71,16 +73,22 @@ export const createProductReview = (productId, reviewData) => async (dispatch) =
         throw new Error(error.message || 'Failed to create review')
     }
 
+<<<<<<< HEAD:backend/frontend/src/redux/reviews.js
     const data = await response.json();
     dispatch(addReview(productId, data));
     return data
+=======
+    const newReview = await response.json();
+    dispatch(addReview(newReview));
+    return newReview
+>>>>>>> reviews:frontend/src/redux/reviews.js
 };
 
 export const updateReviewAction = (review) => async (dispatch) => {
     const response = await fetch(`/api/reviews/${review.id}`,
         {
             method: "PUT",
-            headers: {"Content-Type":"application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(review)
         })
     if (!response.ok) {
@@ -103,16 +111,17 @@ export const deleteProductReview = (reviewId) => async (dispatch) => {
         throw new Error(error.message || 'Failed to delete review')
     }
 
-    await response.json()
+    const data = await response.json()
     dispatch(removeReview(reviewId));
     return response
 }
 
 //!Reducer
-const initialState = {}
+const initialState = []
 
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
+<<<<<<< HEAD:backend/frontend/src/redux/reviews.js
         case SET_REVIEWS:
             return { ...state, [action.payload.productId]: action.payload.reviews };
         case GET_CURRENT_REVIEWS: {
@@ -120,12 +129,26 @@ const reviewsReducer = (state = initialState, action) => {
             return { ...currentReviews }
         }
         case UPDATE_REVIEW: {
+=======
+        case SET_REVIEWS: {
+            const reviews = [...action.payload]
+            return [...reviews];
+        }
+        case GET_CURRENT_REVIEWS:
+            const currentReviews = [...action.payload]
+            return [...currentReviews]
+        case UPDATE_REVIEW:
+>>>>>>> reviews:frontend/src/redux/reviews.js
             const review = action.payload
-            const updatesReviews = state.reviews.map(r => {
-                if (r.id == review.id)
-                    return review
+            const updatesReviews = state.map(r => {
+                if (r.id == review.id) {
+                    r.review = review.review
+                    r.rating = review.rating
+                    return r
+                }
                 return r
             })
+<<<<<<< HEAD:backend/frontend/src/redux/reviews.js
             return { reviews: [...updatesReviews] }
         }
         case ADD_REVIEW:
@@ -140,6 +163,14 @@ const reviewsReducer = (state = initialState, action) => {
             const reviews = [...state.reviews.filter(r => r.id != action.payload)]
             return { reviews: [...reviews] };
         }
+=======
+            return [...updatesReviews]
+        case ADD_REVIEW:
+            return [...state, action.payload];
+        case REMOVE_REVIEW:
+            state = [...state.filter(r => r.id != action.payload)]
+            return [...state];
+>>>>>>> reviews:frontend/src/redux/reviews.js
         default:
             return state;
     }
