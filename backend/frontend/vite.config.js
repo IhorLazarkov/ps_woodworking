@@ -11,10 +11,13 @@ export default defineConfig((mode) => ({
       failOnError: mode === "production",
     }),
   ],
-  // server: {
-  //   open: true,
-  //   proxy: {
-  //     "/api": "http://127.0.0.1:8000",
-  //   },
-  // },
+  server: {
+    // open: true,
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || 5173,
+    https:false,
+    proxy: {
+      "/api": "http://127.0.0.1:8001",
+    },
+  },
 }));

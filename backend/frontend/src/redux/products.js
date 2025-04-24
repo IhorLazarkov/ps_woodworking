@@ -39,7 +39,9 @@ const removeProduct = (productId) => ({
 //! thunk actions
 //~ fetch all
 export const fetchProducts = () => async (dispatch) => {
-    const response = await fetch('api/products');
+    const response = await fetch('/api/products/').catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
+    });
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to fetch products');
@@ -52,7 +54,9 @@ export const fetchProducts = () => async (dispatch) => {
 
 //~ fetch single
 export const fetchProductDetails = (productId) => async (dispatch) => {
-    const response = await fetch(`/api/products/${productId}`);
+    const response = await fetch(`/api/products/${productId}`).catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
+    });
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to fetch product details');
@@ -65,14 +69,16 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
 //~ get current products
 export const getUserCurrentProducts = () => async (dispatch) => {
-    const response = await fetch('/api/sessions/products')
+    const response = await fetch('/api/sessions/products').catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
+    });
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to fetch products")
     }
 
     const data = await response.json();
-    dispatch(getCurrentProducts(data));
+    dispatch(getCurrentProducts(data.products));
     return response;
 }
 
@@ -92,6 +98,8 @@ export const createProduct = (productData) => async (dispatch, getState) => {
             ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {})
         },
         body: JSON.stringify(productData),
+    }).catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
     });
 
     if (!response.ok) {
@@ -126,6 +134,8 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
         headers: {
             ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
         },
+    }).catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
     });
 
     if (!response.ok) {
@@ -153,6 +163,8 @@ export const updateProduct = (productId, productData) => async (dispatch, getSta
             ...(getState().session.user?.authToken ? { 'Authorization': `Bearer ${getState().session.user.authToken}` } : {}),
         },
         body: JSON.stringify(productData),
+    }).catch((error) => {
+        throw new Error(error.message || "Failed to fetch products")
     });
 
     if (!response.ok) {
@@ -178,8 +190,10 @@ const productsReducer = (state = initialState, action) => {
         case SET_PRODUCT_DETAILS:
             return { ...state, productDetails: action.payload };
         case GET_PRODUCTS_CURRENT: {
-            const newProducts = action.payload;
-            return { ...newProducts };
+            const newProducts = {};
+            newProducts.products = [...action.payload]
+            newProducts.productDetails = { ...state.productDetails }
+            return {...newProducts};
         }
         case ADD_PRODUCT:
             return { ...state, products: [...state.products, action.payload] };
