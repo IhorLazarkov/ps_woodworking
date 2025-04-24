@@ -41,11 +41,11 @@ export const router = createBrowserRouter([
         element: <ProductDetails />,
       },
       {
-        path: "/cart",
+        path: "cart",
         element: <CartPage />
       },
       {
-        path: "/favorites",
+        path: "favorites",
         element: <FavoritesPage />
       },
       {

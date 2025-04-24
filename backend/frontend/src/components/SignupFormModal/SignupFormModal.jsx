@@ -24,20 +24,21 @@ function SignupFormModal() {
       });
     }
 
-    const serverResponse = await dispatch(
+    dispatch(
       thunkSignup({
         email,
         username,
+        first_name: username,
         password,
         first_name: firstName,
       })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
-    }
+    ).then((res) => {
+      if (res) {
+        setErrors(res);
+      } else {
+        closeModal()
+      }
+    });
   };
 
   return (
