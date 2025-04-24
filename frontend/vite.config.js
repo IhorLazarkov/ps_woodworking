@@ -12,9 +12,12 @@ export default defineConfig((mode) => ({
     }),
   ],
   server: {
-    open: true,
+    // open: true,
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || 5173,
+    https:false,
     proxy: {
-      "/api": "http://127.0.0.1:8000",
+      "/api": "http://127.0.0.1:8001",
     },
   },
 }));
