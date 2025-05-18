@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchProducts } from "../../redux/products"
 import ProductCard from "../ProductCard"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import "./LandingPage.css"
 import FooterCard from "./FooterCard"
 
@@ -25,9 +25,13 @@ function LandingPage() {
                     ? <h3>Loading ...</h3>
                     : <>
                         {products && products.filter(p => p.quantity > 0).map(p => {
-                            return <Link key={p.id} to={`product/${p.id}`}>
+                            return <NavLink
+                                key={p.id}
+                                to={`product/${p.id}`}
+                                style={{ textDecoration: 'none' }}
+                            >
                                 < ProductCard product={p} />
-                            </Link>
+                            </NavLink>
                         })}
                     </>
                 }

@@ -11,20 +11,18 @@ function ProductCard({ product }) {
 
   return (
     <div className="product-card">
-      <img
-        src={product.previewImage}
-        alt={product.name}
-        className="product-card-image"
-      />
-      <div className="product-card-content">
+      <div className="img-container">
+        <img
+          src={product.previewImage}
+          alt={product.name}
+          className="product-card-image"
+        />
         <div className="product-card-rating">
-          <div className="product-card-name">
-            <h3>{product.name}</h3>
-
-          </div>
-          <FontAwesomeIcon icon={faStar} /> {product.avgRating || "New"}
+          <FontAwesomeIcon icon={faStar} />
+          {product.avgRating || "New"}
         </div>
-        <button 
+
+        <button
           className="favorite-button"
           onClick={(e) => {
             e.stopPropagation();
@@ -34,19 +32,30 @@ function ProductCard({ product }) {
         >
           {isFavorited(product.id) ? "❤️" : "🤍"}
         </button>
-        <div className="product-card-price">${product.price}</div>
-        <button
-          className="add-to-cart-button"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            addToCart(product);
-            toast.success((`${product.name} added to cart!`));
-          }}
-        >
-          Add to Cart
-        </button>
+        <div className="product-card-content">
+          <div className="product-card-name">
+            <h3>{product.name}</h3>
+          </div>
+          <div className="product-card-price">
+            ${product.price}
+          </div>
+        </div>
       </div>
+      <p>{product.description}</p>
+      <button
+        className="primary"
+        style={{
+          flexGrow: 1,
+          cursor: 'pointer',
+          fontSize: '1.1em',
+          paddingBlock: '0.5em'
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          addToCart(product);
+          toast.success((`${product.name} added to cart!`));
+        }}
+      >Add</button>
     </div>
   );
 }

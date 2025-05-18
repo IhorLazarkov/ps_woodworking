@@ -31,30 +31,30 @@ div.current_user_product_card {
 
 button.primary {
     border-radius: 5px;
-    width: 7em;
-    height: 3em;
+    /* width: 7em;
+    height: 3em; */
     border-color: #C48636;
     background-color: #C48636;
     color: white;
-    font-weight: 500;
+    /* font-weight: 500; */
 }
 button.critical {
     border-radius: 5px;
-    width: 7em;
-    height: 3em;
+    /* width: 7em;
+    height: 3em; */
     border-color: red;
     color: red;
     background-color: white;
-    font-weight: 500;
+    /* font-weight: 500; */
 }
 button.nutral{
     border-radius: 5px;
-    width: 7em;
-    height: 3em;
+    /* width: 7em;
+    height: 3em; */
     border-color: grey;
     color: black;
     background-color: white;
-    font-weight: 500;
+    /* font-weight: 500; */
 }
 
 div#delete_confirmation{
