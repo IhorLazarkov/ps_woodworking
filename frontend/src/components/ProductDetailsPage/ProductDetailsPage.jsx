@@ -6,8 +6,6 @@ import { toast } from 'react-toastify';
 import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { useFavorites } from '../../context/FavoritesContext';
-import { FaHeart } from "react-icons/fa";
 import './ProductDetailsPage.css';
 import { createProductReview, fetchProductReviews } from '../../redux/reviews';
 import { useModal } from '../../context/Modal';
@@ -19,7 +17,6 @@ export const ProductDetails = () => {
   const user = useSelector(state => state.session.user)
 
   const { addToCart } = useCart();
-  const { toggleFavorite, isFavorited } = useFavorites();
 
   //State
   const hasReview = useRef(false)
@@ -61,6 +58,7 @@ export const ProductDetails = () => {
             {productState.productImages.map((image, i) => {
               if (i === 0) return null;
               return <div
+                key={i}
                 className="img-container"
                 style={{
                   border: "1px solid black",
