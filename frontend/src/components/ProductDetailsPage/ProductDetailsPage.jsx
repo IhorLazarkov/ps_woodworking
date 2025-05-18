@@ -17,7 +17,7 @@ export const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  
+
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorited } = useFavorites();
 
@@ -55,26 +55,33 @@ export const ProductDetails = () => {
 
   return (
     <div className="all-product-details">
-      <div className="product-main-titles">
-        <h1 className="product-details-title">{productState.name}</h1>
-      </div>
-
       <div className="product-details-info">
-        <div className='product-image-div'>
-          <img
-            src={productState.productImages.filter(i => i.preview = true)[0].url}
-            alt={productState.name}
-            className="product-card-image"
-          />
+        <div className='product-images-div'>
+          <div style={{ display: 'flex' }}>
+            {productState.productImages.map((image, i) => {
+              if (i === 0) return null;
+              return <div style={{
+                border: "1px solid black",
+                marginLeft: "0.05em" 
+                }}
+                 className="img-container">
+                <img
+                  key={image.id}
+                  src={image.url}
+                  alt={productState.name}
+                />
+              </div>
+            })}
+          </div>
+          <div className="product-image-preview">
+            <img
+              src={productState.productImages.filter(i => i.preview = true)[0].url}
+              alt={productState.name}
+            />
+          </div>
         </div>
         <div className='product-details-text'>
-
-          <p className="product-review">
-            <FontAwesomeIcon icon={faStar} />{' '}
-            {productState.avgRating || 'New'}
-            {productState.numReviews ? ` · ${productState.numReviews} Reviews` : ''}
-          </p>
-
+          <h1 className="product-details-title">{productState.name}</h1>
           <div className="product-description">
             <p>{productState.description}</p>
           </div>
@@ -97,7 +104,7 @@ export const ProductDetails = () => {
                   toast.success(`${productState.name} added to cart!`);
                 }}
               >
-                Add to Cart
+                Add to cart
               </button>
             </div>
           </div>
@@ -105,7 +112,13 @@ export const ProductDetails = () => {
       </div>
 
       <div className="line-break"></div>
-      <h3>{productState.avgRating > 0 ? "Reviews" : 'New'}</h3>
+      <span className="product-review">
+        {productState.numReviews === 0
+          ? "New"
+          : <>Reviews<FontAwesomeIcon icon={faStar}/>{productState.avgRating}</>
+        }
+      </span>
+
       {isLoggedIn.current && !isProductOwner.current && !hasReview.current && <OpenModalButton
         className='primary'
         buttonText="Add review"
