@@ -45,17 +45,22 @@ function ProductCard({ product }) {
       <button
         className="primary"
         style={{
-          flexGrow: 1,
           cursor: 'pointer',
+          position: 'absolute',
+          bottom: '-1.3em',
+          right: '-2.8em',
+          rotate: '-45deg',
+          boxSizing: 'border-box',
+          width: '120px',
           fontSize: '1.1em',
-          paddingBlock: '0.5em'
+          padding: '0.4em 0 2em',
         }}
         onClick={(e) => {
           e.preventDefault();
           addToCart(product);
           toast.success((`${product.name} added to cart!`));
         }}
-      >Add</button>
+      >ADD</button>
     </div>
   );
 }
