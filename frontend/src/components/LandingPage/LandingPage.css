@@ -20,13 +20,6 @@ footer#landing-page {
 
     display: flex;
     justify-content: space-evenly;
-
-    & div.delimeter {
-        align-self: center;
-        background-color: lightgray;
-        width: 1px;
-        height: 150px;
-    }
 }
 
 div.footer-card {

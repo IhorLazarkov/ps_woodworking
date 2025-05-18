@@ -60,11 +60,13 @@ export const ProductDetails = () => {
           <div style={{ display: 'flex' }}>
             {productState.productImages.map((image, i) => {
               if (i === 0) return null;
-              return <div style={{
-                border: "1px solid black",
-                marginLeft: "0.05em" 
+              return <div
+                className="img-container"
+                style={{
+                  border: "1px solid black",
+                  marginLeft: "0.05em"
                 }}
-                 className="img-container">
+              >
                 <img
                   key={image.id}
                   src={image.url}
@@ -81,33 +83,34 @@ export const ProductDetails = () => {
           </div>
         </div>
         <div className='product-details-text'>
-          <h1 className="product-details-title">{productState.name}</h1>
+          <h1 className="product-details-title">
+            {productState.name}
+          </h1>
           <div className="product-description">
+            <i>Description:</i>
             <p>{productState.description}</p>
           </div>
-          <span >{`Available Quantity: ${productState.quantity}`}</span>
-          <div className="purchase-product-div">
-            <div className="price-review-title">
-              <p className="purchase-price">{`$${productState.price}`}</p>
-            </div>
-            <div className='buttons'>
-              <button
-                className="favorite-btn"
-                onClick={() => toggleFavorite(productState)}
-              >
-                <FaHeart color={isFavorited(productState.id) ? "red" : "lightgray"} />
-              </button>
-              <button
-                className="add-to-cart-btn"
-                onClick={() => {
-                  addToCart(productState);
-                  toast.success(`${productState.name} added to cart!`);
-                }}
-              >
-                Add to cart
-              </button>
-            </div>
+          <div>{
+            productState.quantity > 0
+              ? <span><i>Available quantity: </i>{productState.quantity}</span>
+              : <span>Not available</span>
+          }
           </div>
+          <div className="price-review-title">
+            <i>Price: </i>{`$${productState.price}`}
+          </div>
+          {productState.quantity > 0
+            ?
+            <button
+              className="add-to-cart-btn primary"
+              onClick={() => {
+                addToCart(productState);
+                toast.success(`${productState.name} added to cart!`);
+              }}
+            >
+              Add to cart
+            </button>
+            : <button className='add-to-cart-btn disabled'> Add to cart</button>}
         </div>
       </div>
 
@@ -115,7 +118,7 @@ export const ProductDetails = () => {
       <span className="product-review">
         {productState.numReviews === 0
           ? "New"
-          : <>Reviews<FontAwesomeIcon icon={faStar}/>{productState.avgRating}</>
+          : <>Reviews<FontAwesomeIcon icon={faStar} />{productState.avgRating}</>
         }
       </span>
 

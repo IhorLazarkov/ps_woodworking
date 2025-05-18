@@ -30,38 +30,34 @@ div.current_user_product_card {
 }
 
 button.primary {
-    border-radius: 5px;
-    /* width: 7em;
-    height: 3em; */
-    /* border-color: #C48636; */
-    background-color: #C48636;
-    color: white;
-    /* font-weight: 500; */
-}
-button.critical {
-    border-radius: 5px;
-    /* width: 7em;
-    height: 3em; */
-    border-color: red;
-    color: red;
-    background-color: white;
-    /* font-weight: 500; */
-}
-button.nutral{
-    border-radius: 5px;
-    /* width: 7em;
-    height: 3em; */
-    border-color: grey;
-    color: black;
-    background-color: white;
-    /* font-weight: 500; */
+  border-radius: 5px;
+  background-color: #c48636;
+  color: white;
 }
 
-div#delete_confirmation{
-    box-sizing: border-box;
-    width: 250px;
-    margin: 8px;
-    border-radius: 5px;
+button.critical {
+  border-radius: 5px;
+  border-color: red;
+  color: red;
+  background-color: white;
+}
+
+button.nutral {
+  border-radius: 5px;
+  border-color: grey;
+  color: black;
+  background-color: white;
+}
+
+button.disabled {
+  cursor: not-allowed;
+}
+
+div#delete_confirmation {
+  box-sizing: border-box;
+  width: 250px;
+  margin: 8px;
+  border-radius: 5px;
 }
 
 .favorite-button {
