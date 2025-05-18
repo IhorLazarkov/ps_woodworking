@@ -42,7 +42,7 @@ export const fetchProductReviews = (productId) => async (dispatch) => {
 
     const data = await response.json();
     dispatch(setReviews(data.reviews));
-    return data;
+    return data.reviews;
 }
 
 export const fetchCurrentReviews = () => async (dispatch) => {

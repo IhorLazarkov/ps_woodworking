@@ -14,24 +14,24 @@ def seed_products():
     ]
     
     images1  = [
-        Image(product = items[0], url = 'https://m.media-amazon.com/images/I/418eXQzWF3L._AC_US100_.jpg', preview = True),
-        Image(product = items[0], url = 'https://m.media-amazon.com/images/I/61hvx6t14PL._AC_US100_.jpg', preview = False),
-        Image(product = items[0], url = "https://m.media-amazon.com/images/I/41+EiyWWToL._AC_US100_.jpg", preview = False),
-        Image(product = items[0], url = "https://m.media-amazon.com/images/I/51uhA1DinjL._AC_US100_.jpg", preview = False)
+        Image(product = items[0], url = 'https://images-na.ssl-images-amazon.com/images/I/41vTLAUlSTL._AC_UL330_SR330,330_.jpg', preview = True),
+        Image(product = items[0], url = 'https://images-na.ssl-images-amazon.com/images/I/41vTLAUlSTL._AC_UL165_SR165,165_.jpg', preview = False),
+        Image(product = items[0], url = "https://images-na.ssl-images-amazon.com/images/I/71bV4QvczSL._AC_UL165_SR165,165_.jpg", preview = False),
+        Image(product = items[0], url = "https://images-na.ssl-images-amazon.com/images/I/71EwxYN4VvL._AC_UL165_SR165,165_.jpg", preview = False)
     ]
     
     images2  = [
-        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51ctfwDl7BL._AC_US100_.jpg", preview = True),
-        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51NN-2MY5uL._AC_US100_.jpg", preview = False),
-        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51gZddjZPYL._AC_US100_.jpg", preview = False),
-        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51AJkp3eT-L._AC_US100_.jpg", preview = False)
+        Image(product = items[1], url = "https://m.media-amazon.com/images/I/81mWoXBoH5L._AC_SX679_.jpg", preview = True),
+        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51S7HffrkZL._AC_SY100_.jpg", preview = False),
+        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51JCIF8sbnL._AC_US100_.jpg", preview = False),
+        Image(product = items[1], url = "https://m.media-amazon.com/images/I/51m8uvgNefL._AC_US100_AA50_.jpg", preview = False)
     ]
     
     images3  = [
-        Image(product = items[2], url="https://m.media-amazon.com/images/I/41baRoB0L-L._AC_US40_.jpg", preview = True),
-        Image(product = items[2], url="https://m.media-amazon.com/images/I/41lMsz0WmiL._AC_US40_.jpg", preview = False),
-        Image(product = items[2], url="https://m.media-amazon.com/images/I/51dP7KnLmmL._AC_US40_.jpg", preview = False),
-        Image(product = items[2], url="https://m.media-amazon.com/images/I/41e3a8xZZ6L._AC_US40_.jpg", preview = False)
+        Image(product = items[2], url="https://images-na.ssl-images-amazon.com/images/I/81yGzrk4DYL._AC_UL348_SR348,348_.jpg", preview = True),
+        Image(product = items[2], url="https://m.media-amazon.com/images/I/41fNZIKbbvL._AC_US100_.jpg", preview = False),
+        Image(product = items[2], url="https://m.media-amazon.com/images/I/41qrtQISqSL._AC_US100_.jpg", preview = False),
+        Image(product = items[2], url="https://m.media-amazon.com/images/I/318V2M2HnbL._AC_US100_.jpg", preview = False)
     ]
     
     db.session.add_all(items)

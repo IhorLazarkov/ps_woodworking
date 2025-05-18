@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchProductDetails } from '../../redux/products';
@@ -17,107 +17,117 @@ export const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const product = useSelector((state) => state.products.productDetails);
-  const reviews = useSelector((state) => state.reviews)
+
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorited } = useFavorites();
-  const [hasReview, setHasReview] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [isProductOwner, setIsProductOwner] = useState(false)
+
+  //State
+  const hasReview = useRef(false)
+  const isLoggedIn = useRef(false)
+  const isProductOwner = useRef(false)
+  const [productState, setProduct] = useState({})
+  const [reviewsState, setReviews] = useState([])
 
   useEffect(() => {
-    dispatch(fetchProductDetails(productId)).then(() => {
-      dispatch(fetchProductReviews(productId)).then(() => {
-        console.log("Loading of products details with reviews completed");
+    // Check logged in user is owner
+    if (user !== null && productState.sellerId == user.id) isProductOwner.current = true
+    // Fetch product details and reviews
+    dispatch(fetchProductDetails(productId)).then((res) => {
+      setProduct(res)
+      dispatch(fetchProductReviews(productId)).then((reviews) => {
+        //Is user has review already
+        if (user !== null && user.id) {
+          isLoggedIn.current = true
+          for (const item of reviews) {
+            if (item.user_id == user.id) {
+              hasReview.current = true;
+              break;
+            }
+          }
+        }
+        setReviews(reviews)
       })
     });
   }, [dispatch, productId]);
 
-  useEffect(() => {
-    // Check logged in user is owner
-    if (product.sellerId == user.id) setIsProductOwner(true)
-  }, [product])
-
-  useEffect(() => {
-    //Hack: for some reason hasReview remains true after navigating from dproduct with current user's review
-    setHasReview(false)
-
-    if (user && user.id) setIsLoggedIn(true)
-    for (const item of reviews) {
-      if (item.user_id == user.id) {
-        setHasReview(true);
-        break;
-      }
-    }
-
-    console.log({ isLoggedIn, hasReview, isProductOwner });
-  }, [reviews])
-
-  if (!product) return null;
-  if (!product.productImages) return null;
-  // if (reviews.length == 0) return null;
+  if (!productState) return null;
+  if (!productState.productImages) return null;
 
   return (
     <div className="all-product-details">
-      <div className="product-main-titles">
-        <h1 className="product-details-title">{product.name}</h1>
-      </div>
-
       <div className="product-details-info">
-        <div className='product-image-div'>
-          <img
-            src={product.productImages.filter(i => i.preview = true)[0].url}
-            alt={product.name}
-            className="product-card-image"
-          />
-        </div>
-        <div className='product-details-text'>
-
-          <p className="product-review">
-            <FontAwesomeIcon icon={faStar} />{' '}
-            {product.avgRating || 'New'}
-            {product.numReviews ? ` · ${product.numReviews} Reviews` : ''}
-          </p>
-
-          <div className="product-description">
-            <p>{product.description}</p>
-          </div>
-          <span >{`Available Quantity: ${product.quantity}`}</span>
-          <div className="purchase-product-div">
-            <div className="price-review-title">
-              <p className="purchase-price">{`$${product.price}`}</p>
-            </div>
-            <div className='buttons'>
-              <button
-                className="favorite-btn"
-                onClick={() => toggleFavorite(product)}
-              >
-                <FaHeart color={isFavorited(product.id) ? "red" : "lightgray"} />
-              </button>
-              <button
-                className="add-to-cart-btn"
-                onClick={() => {
-                  addToCart(product);
-                  toast.success(`${product.name} added to cart!`);
+        <div className='product-images-div'>
+          <div style={{ display: 'flex' }}>
+            {productState.productImages.map((image, i) => {
+              if (i === 0) return null;
+              return <div
+                className="img-container"
+                style={{
+                  border: "1px solid black",
+                  marginLeft: "0.05em"
                 }}
               >
-                Add to Cart
-              </button>
-
-              {/* <button className="purchase-btn">Purchase</button> */}
-            </div>
+                <img
+                  key={image.id}
+                  src={image.url}
+                  alt={productState.name}
+                />
+              </div>
+            })}
           </div>
+          <div className="product-image-preview">
+            <img
+              src={productState.productImages.filter(i => i.preview = true)[0].url}
+              alt={productState.name}
+            />
+          </div>
+        </div>
+        <div className='product-details-text'>
+          <h1 className="product-details-title">
+            {productState.name}
+          </h1>
+          <div className="product-description">
+            <i>Description:</i>
+            <p>{productState.description}</p>
+          </div>
+          <div>{
+            productState.quantity > 0
+              ? <span><i>Available quantity: </i>{productState.quantity}</span>
+              : <span>Not available</span>
+          }
+          </div>
+          <div className="price-review-title">
+            <i>Price: </i>{`$${productState.price}`}
+          </div>
+          {productState.quantity > 0
+            ?
+            <button
+              className="add-to-cart-btn primary"
+              onClick={() => {
+                addToCart(productState);
+                toast.success(`${productState.name} added to cart!`);
+              }}
+            >
+              Add to cart
+            </button>
+            : <button className='add-to-cart-btn disabled'> Add to cart</button>}
         </div>
       </div>
 
       <div className="line-break"></div>
-      <h3>{product.avgRating > 0 ? "Reviews" : 'New'}</h3>
-      {isLoggedIn && !isProductOwner && !hasReview && <OpenModalButton
+      <span className="product-review">
+        {productState.numReviews === 0
+          ? "New"
+          : <>Reviews<FontAwesomeIcon icon={faStar} />{productState.avgRating}</>
+        }
+      </span>
+
+      {isLoggedIn.current && !isProductOwner.current && !hasReview.current && <OpenModalButton
         className='primary'
         buttonText="Add review"
         modalComponent={<ReviewForm productId={productId} />} />}
       {
-        reviews && reviews.map(({ id, created_at, rating, review, user }) => {
+        reviewsState && reviewsState.map(({ id, created_at, rating, review, user }) => {
           return <div className="review-content" key={id}>
             <div className="review-heading">
               <p className="review-title">

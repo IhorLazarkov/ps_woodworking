@@ -64,7 +64,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
     const data = await response.json()
     dispatch(setProductDetails(data));
-    return response;
+    return data;
 }
 
 //~ get current products
